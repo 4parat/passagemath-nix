@@ -1,16 +1,23 @@
 {
   lib,
   stdenv,
-  python3,
-  python3Packages,
+  python,
   fetchPypi,
   autoPatchelfHook,
+  buildPythonPackage,
+
+  gmpy2,
+  cysignals,
+  numpy,
+  sympy,
+  passagemath-categories,
+  passagemath-environment,
+  passagemath-ntl,
   ...
 }:
-
 let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python3.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -31,7 +38,7 @@ let
       or (throw "passagemath-symbolics: unsupported wheel");
 in
 
-python3Packages.buildPythonPackage {
+buildPythonPackage {
   pname = "passagemath-symbolics";
   inherit version;
 
@@ -49,10 +56,14 @@ python3Packages.buildPythonPackage {
 
   nativeBuildInputs = [ autoPatchelfHook ];
   dependencies = [
-    python3Packages.gmpy2
-    python3Packages.cysignals
-    python3Packages.numpy
-    python3Packages.sympy
+    gmpy2
+    cysignals
+    numpy
+    sympy
+
+    passagemath-categories
+    passagemath-environment
+    passagemath-ntl
   ];
 }
 

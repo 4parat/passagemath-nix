@@ -1,16 +1,17 @@
 {
   lib,
   stdenv,
-  python3,
-  python3Packages,
+  python,
+  buildPythonPackage,
   fetchPypi,
   autoPatchelfHook,
+  memory-allocator,
+  passagemath-objects,
   ...
 }@pkgs:
-
 let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python3.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -29,10 +30,8 @@ let
   wheel =
     wheels.${stdenv.hostPlatform.system}.${pythonTag}
       or (throw "passagemath-categories: unsupported wheel");
-  memory-allocator = (import ../memory-allocator/default.nix) pkgs;
-  passagemath-objects = (import ../passagemath-objects/default.nix) pkgs;
 in
-  python3Packages.buildPythonPackage {
+  buildPythonPackage {
     pname = "passagemath-categories";
     inherit version;
 

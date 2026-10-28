@@ -1,14 +1,15 @@
 {
-  lib,
-  python3Packages,
+  buildPythonPackage,
   fetchPypi,
+  setuptools,
+  cython,
   ...
 }:
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   name = "memory-allocator";
   version = "0.1.4";
   pyproject = true;
-  build-system = [ python3Packages.setuptools python3Packages.cython];
+  build-system = [ setuptools cython ];
 
   src = fetchPypi {
     pname = "memory_allocator";

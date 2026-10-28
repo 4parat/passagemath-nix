@@ -1,6 +1,8 @@
-{ python3Packages, fetchPypi, ... }:
+{ buildPythonPackage, fetchPypi, 
+  passagemath-symbolics,
+... }:
 
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "passagemath-standard";
   version = "10.8.13";
   format = "wheel";
@@ -16,5 +18,8 @@ python3Packages.buildPythonPackage rec {
     abi = "none";
     platform = "any";
   };
+
+  dependencies = [
+  ];
 }
 

@@ -1,16 +1,21 @@
 {
   lib,
   stdenv,
-  python3,
-  python3Packages,
+  python,
   fetchPypi,
   autoPatchelfHook,
+  buildPythonPackage,
+
+  memory-allocator,
+  cysignals,
+  passagemath-environment,
+  passagemath-categories,
   ...
 }@pkgs:
 
 let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python3.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -29,11 +34,8 @@ let
   wheel =
     wheels.${stdenv.hostPlatform.system}.${pythonTag}
       or (throw "passagemath-ntl: unsupported wheel");
-  memory-allocator = (import ../memory-allocator/default.nix) pkgs;
-  passagemath-environment = (import ../passagemath-environment/default.nix) pkgs;
-  passagemath-categories = (import ../passagemath-categories/default.nix) pkgs;
 in
-  python3Packages.buildPythonPackage {
+  buildPythonPackage {
     pname = "passagemath-ntl";
     inherit version;
 
@@ -52,7 +54,7 @@ in
     nativeBuildInputs = [ autoPatchelfHook ];
     dependencies = [
       memory-allocator
-      python3Packages.cysignals
+      cysignals
       passagemath-environment
       passagemath-categories
     ];

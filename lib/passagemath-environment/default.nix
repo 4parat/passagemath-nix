@@ -1,13 +1,12 @@
 {
-  lib,
-  stdenv,
-  python3,
-  python3Packages,
   fetchPypi,
-  autoPatchelfHook,
+  setuptools,
+  buildPythonPackage,
+
+  platformdirs,
   ...
 }:
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "passagemath-environment";
   version = "10.8.13";
 
@@ -23,10 +22,10 @@ python3Packages.buildPythonPackage rec {
     abi = "none";
     platform = "any";
   };
-  build-system = [ python3Packages.setuptools ];
+  build-system = [ setuptools ];
 
   dependencies = [
-    python3Packages.platformdirs
+    platformdirs
   ];
 
   pythonImportsCheck = [
