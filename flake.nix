@@ -140,7 +140,9 @@
             passage-project-cookiecutter = pkgs'.python3Packages.passage-project-cookiecutter;
             passage-setup = pkgs'.python3Packages.passage-setup;
             passage-sws2rst = pkgs'.python3Packages.passage-sws2rst;
+
             memory-allocator = pkgs'.python3Packages.memory-allocator;
+            mpmath = pkgs'.python3Packages.mpmath;
           };
 
 

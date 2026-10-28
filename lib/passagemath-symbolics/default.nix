@@ -6,6 +6,7 @@
   autoPatchelfHook,
   buildPythonPackage,
 
+  libz,
   gmpy2,
   cysignals,
   numpy,
@@ -13,6 +14,9 @@
   passagemath-categories,
   passagemath-environment,
   passagemath-ntl,
+  passagemath-gsl,
+  passagemath-flint,
+  passagemath-modules,
   ...
 }:
 let
@@ -55,6 +59,7 @@ buildPythonPackage {
   };
 
   nativeBuildInputs = [ autoPatchelfHook ];
+  buildInputs = [ libz ];
   dependencies = [
     gmpy2
     cysignals
@@ -64,6 +69,9 @@ buildPythonPackage {
     passagemath-categories
     passagemath-environment
     passagemath-ntl
+    passagemath-gsl
+    passagemath-flint
+    passagemath-modules
   ];
 }
 
