@@ -124,7 +124,10 @@ final: prev: {
       passage-project-cookiecutter = pyFinal.callPackage ./lib/passage-project-cookiecutter/default.nix {};
       passage-setup = pyFinal.callPackage ./lib/passage-setup/default.nix {};
       passage-sws2rst = pyFinal.callPackage ./lib/passage-sws2rst/default.nix {};
+
+      # Downgrades
       memory-allocator = pyFinal.callPackage ./lib/memory-allocator/default.nix {};
+      mpmath = pyFinal.callPackage ./lib/mpmath/default.nix {};
     }
   )];
 }
