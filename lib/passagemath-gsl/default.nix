@@ -12,6 +12,7 @@
   numpy,
   passagemath-categories,
   passagemath-environment,
+  passagemath-modules,
   ...
 }@pkgs:
 
@@ -61,6 +62,7 @@ in
       numpy
       passagemath-categories
       passagemath-environment
+      passagemath-modules
     ];
   }
 
