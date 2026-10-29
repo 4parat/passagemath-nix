@@ -5,6 +5,11 @@
   fetchPypi,
   autoPatchelfHook,
   buildPythonPackage,
+
+  libz,
+  passagemath-categories,
+  passagemath-gap,
+  passagemath-modules,
   ...
 }@pkgs:
 
@@ -14,15 +19,15 @@ let
   wheels = {
     x86_64-linux = {
       cp313 = {
-        platform = "manylinux_2_24_x86_64.manylinux_2_28_x86_64";
+        platform = "manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64";
         abi = "cp313";
         hash = ""; # TODO
       };
 
       cp314 = {
-        platform = "manylinux_2_24_x86_64.manylinux_2_28_x86_64";
+        platform = "manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64";
         abi = "cp314";
-        hash = "sha256-zVzzQmkZ/+bjbfrktFzA1YElohw4YxILPMDVIsvxnhg=";
+        hash = "sha256-Ff0na1o5WXXg/cXvOE8o8Z30XpvFwS6kh1hffoOYOOc=";
       };
     };
   };
@@ -47,7 +52,13 @@ in
     };
 
     nativeBuildInputs = [ autoPatchelfHook ];
+    buildInputs = [
+      libz
+    ];
     dependencies = [
+      passagemath-categories
+      passagemath-gap
+      passagemath-modules
     ];
   }
 
