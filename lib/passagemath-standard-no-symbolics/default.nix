@@ -29,6 +29,14 @@
   jupyter-client,
   ipywidgets,
   fpylll,
+  passagemath-brial,
+  passagemath-cddlib,
+  passagemath-cliquer,
+  passagemath-combinat,
+  passagemath-eclib,
+  passagemath-gap-pkg-transgrp-data,
+  passagemath-gap-pkg-ctbllib-data,
+  passagemath-gap-pkg-tomlib-data,
   passagemath-gap-pkg-irredsol-data,
   passagemath-glpk,
   passagemath-graphs,
@@ -94,7 +102,17 @@ in
     };
 
     nativeBuildInputs = [ autoPatchelfHook ];
+    pythonRelaxDeps = [ "sphinx" ];
     dependencies = [
+      lrcalc
+      passagemath-brial
+      passagemath-cddlib
+      passagemath-cliquer
+      passagemath-combinat
+      passagemath-eclib
+      passagemath-gap-pkg-transgrp-data
+      passagemath-gap-pkg-ctbllib-data
+      passagemath-gap-pkg-tomlib-data
       passagemath-gap-pkg-irredsol-data
       passagemath-glpk
       passagemath-graphs
@@ -123,7 +141,6 @@ in
       cython
       gmpy2
       jupyter-core
-      lrcalc
       memory-allocator
       numpy
       pkgconfig
