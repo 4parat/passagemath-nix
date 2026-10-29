@@ -103,6 +103,10 @@ in
 
     nativeBuildInputs = [ autoPatchelfHook ];
     pythonRelaxDeps = [ "sphinx" ];
+    # Remove bytecode that collides with the same source files from passagemath-environment.
+    postInstall = ''
+      find "$out" -type d -name __pycache__ -prune -exec rm -rf {} +
+    '';
     dependencies = [
       lrcalc
       passagemath-brial

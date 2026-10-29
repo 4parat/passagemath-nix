@@ -16,6 +16,7 @@
           in
           {
             default = config.packages.passagemath-standard;
+            testDerivation = pkgs.python3.withPackages (_: [ self'.packages.passagemath-standard ]);
 
             passage-bootstrap = pkgs'.python3Packages.passage-bootstrap;
             passage-conf = pkgs'.python3Packages.passage-conf;
@@ -151,20 +152,38 @@
 
 
         devShells = {
-          default = pkgs.mkShellNoCC {
-            packages = [ (pkgs.python3.withPackages (pypkgs: [
-              pypkgs.ipython
-              pypkgs.pydot
-              pypkgs.networkx
-              self'.packages.passagemath-objects
-              self'.packages.passagemath-environment
-            ]))
+          default = self'.devShells.test;
+
+          debug = pkgs.mkShellNoCC {
+            packages = [
+              (pkgs.python3.withPackages (pypkgs: [
+                pypkgs.ipython
+                pypkgs.requests
+                pypkgs.pydot
+                pypkgs.networkx
+              ]))
               pkgs.nix-tree
               pkgs.graphviz
             ];
           };
+
+          test = pkgs.mkShellNoCC {
+            packages = [
+              (pkgs.python3.withPackages (pypkgs: [
+                self'.packages.passagemath-standard
+              ]))
+              pkgs.dot2tex
+              pkgs.gap
+              pkgs.graphviz
+              pkgs.meson
+              pkgs.pari
+              pkgs.singular
+              pkgs.texliveSmall
+            ];
+          };
         };
       };
+
       flake.overlays.default = import ./overlay.nix;
     };
 }
