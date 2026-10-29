@@ -2,6 +2,7 @@
   buildPythonPackage,
   fetchPypi, 
   passagemath-symbolics,
+  passagemath-standard-no-symbolics,
   ...
 }:
 
@@ -24,6 +25,7 @@ buildPythonPackage rec {
 
   dependencies = [
     passagemath-symbolics
+    passagemath-standard-no-symbolics
   ];
 }
 
