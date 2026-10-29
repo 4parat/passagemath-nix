@@ -1,6 +1,9 @@
-{ buildPythonPackage, fetchPypi, 
+{
+  buildPythonPackage,
+  fetchPypi, 
   passagemath-symbolics,
-... }:
+  ...
+}:
 
 buildPythonPackage rec {
   pname = "passagemath-standard";
@@ -20,6 +23,7 @@ buildPythonPackage rec {
   };
 
   dependencies = [
+    passagemath-symbolics
   ];
 }
 
