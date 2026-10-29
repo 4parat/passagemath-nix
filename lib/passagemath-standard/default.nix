@@ -3,6 +3,7 @@
   fetchPypi, 
   passagemath-symbolics,
   passagemath-standard-no-symbolics,
+  passagemath-maxima,
   ...
 }:
 
@@ -26,6 +27,7 @@ buildPythonPackage rec {
   dependencies = [
     passagemath-symbolics
     passagemath-standard-no-symbolics
+    passagemath-maxima
   ];
 }
 
