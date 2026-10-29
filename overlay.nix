@@ -69,6 +69,7 @@ final: prev: {
       passagemath-gsl = pyFinal.callPackage ./lib/passagemath-gsl/default.nix {};
       passagemath-highs = pyFinal.callPackage ./lib/passagemath-highs/default.nix {};
       passagemath-homfly = pyFinal.callPackage ./lib/passagemath-homfly/default.nix {};
+      jupyter-threejs-sage = pyFinal.callPackage ./lib/jupyter-threejs-sage/default.nix {};
       passagemath-iml = pyFinal.callPackage ./lib/passagemath-iml/default.nix {};
       passagemath-kenzo = pyFinal.callPackage ./lib/passagemath-kenzo/default.nix {};
       passagemath-kissat = pyFinal.callPackage ./lib/passagemath-kissat/default.nix {};
