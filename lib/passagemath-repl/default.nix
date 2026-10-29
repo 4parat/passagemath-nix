@@ -1,39 +1,24 @@
 {
-  lib,
-  stdenv,
-  python,
   fetchPypi,
-  autoPatchelfHook,
   buildPythonPackage,
-
-  memory-allocator,
-  cysignals,
+  python,
+  lib,
+  passagemath-objects,
   passagemath-environment,
-  passagemath-categories,
+  ipykernel,
+  ipython,
+  ipywidgets,
+  jupyter-client,
+  typing-extensions,
   ...
 }@pkgs:
 
 let
-  version = "10.8.13";
   pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
-  wheels = {
-    x86_64-linux = {
-      cp313 = {
-        platform = "manylinux_2_24_x86_64.manylinux_2_28_x86_64";
-        abi = "cp313";
-        hash = ""; # TODO
-      };
-
-      cp314 = {
-        platform = "manylinux_2_24_x86_64.manylinux_2_28_x86_64";
-        abi = "cp314";
-        hash = "sha256-dYVXv8LEja9tygtWX/CCaWakMna330pmkQ8yRPRveyo=";
-      };
-    };
-  };
-  wheel =
-    wheels.${stdenv.hostPlatform.system}.${pythonTag}
-      or (throw "passagemath-repl: unsupported wheel");
+  version = "10.8.13";
+  abi = "none";
+  platform = "any";
+  hash = "sha256-b/Ig7D+HhuOxisBTeFim1vnWtN2Mz16dA9BFnaDUC5k=";
 in
   buildPythonPackage {
     pname = "passagemath-repl";
@@ -46,17 +31,19 @@ in
       inherit version;
       format = "wheel";
 
-      dist = pythonTag;
-      python = pythonTag;
-      inherit (wheel) abi platform hash;
+      dist = "py3";
+      python = "py3";
+      inherit abi platform hash;
     };
 
-    nativeBuildInputs = [ autoPatchelfHook ];
     dependencies = [
-      memory-allocator
-      cysignals
+      passagemath-objects
       passagemath-environment
-      passagemath-categories
+      ipykernel
+      ipython
+      ipywidgets
+      jupyter-client
+      typing-extensions
     ];
   }
 
