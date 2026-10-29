@@ -152,7 +152,7 @@
 
 
         devShells = {
-          default = self'.devShells.test14;
+          default = self'.devShells.test314;
           debug = pkgs.mkShellNoCC {
             packages = [
               (pkgs.python3.withPackages (pypkgs: [
@@ -170,6 +170,8 @@
             packages = [
               (pkgs.python313.withPackages (pypkgs: [
                 self'.packages.passagemath-standard
+                pypkgs.jupyter
+                pypkgs.notebook
               ]))
               pkgs.dot2tex
               pkgs.gap
@@ -184,7 +186,10 @@
             packages = [
               (pkgs.python314.withPackages (pypkgs: [
                 self'.packages.passagemath-standard
+                pypkgs.jupyter
               ]))
+              pkgs.pkg-config
+              pkgs.fflas-ffpack
               pkgs.dot2tex
               pkgs.gap
               pkgs.graphviz
