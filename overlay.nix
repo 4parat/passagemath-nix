@@ -79,6 +79,7 @@ final: prev: {
       passagemath-libecm = pyFinal.callPackage ./lib/passagemath-libecm/default.nix {};
       passagemath-lie = pyFinal.callPackage ./lib/passagemath-lie/default.nix {};
       passagemath-linbox = pyFinal.callPackage ./lib/passagemath-linbox/default.nix {};
+      lrcalc = pyFinal.callPackage ./lib/lrcalc/default.nix {};
       passagemath-lrslib = pyFinal.callPackage ./lib/passagemath-lrslib/default.nix {};
       passagemath-m4ri-m4rie = pyFinal.callPackage ./lib/passagemath-m4ri-m4rie/default.nix {};
       passagemath-macaulay2 = pyFinal.callPackage ./lib/passagemath-macaulay2/default.nix {};

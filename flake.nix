@@ -85,6 +85,7 @@
             passagemath-gsl = pkgs'.python3Packages.passagemath-gsl;
             passagemath-highs = pkgs'.python3Packages.passagemath-highs;
             passagemath-homfly = pkgs'.python3Packages.passagemath-homfly;
+            jupyter-threejs-sage = pkgs'.python3Packages.jupyter-threejs-sage;
             passagemath-iml = pkgs'.python3Packages.passagemath-iml;
             passagemath-kenzo = pkgs'.python3Packages.passagemath-kenzo;
             passagemath-kissat = pkgs'.python3Packages.passagemath-kissat;
@@ -122,6 +123,8 @@
             passagemath-plot = pkgs'.python3Packages.passagemath-plot;
             passagemath-polyhedra = pkgs'.python3Packages.passagemath-polyhedra;
             passagemath-polymake = pkgs'.python3Packages.passagemath-polymake;
+            passagemath-ppl = pkgs'.python3Packages.passagemath-ppl;
+            passagemath-primesieve-primecount = pkgs'.python3Packages.passagemath-primesieve-primecount;
             passagemath-qepcad = pkgs'.python3Packages.passagemath-qepcad;
             passagemath-rankwidth = pkgs'.python3Packages.passagemath-rankwidth;
             passagemath-repl = pkgs'.python3Packages.passagemath-repl;
@@ -143,6 +146,7 @@
 
             memory-allocator = pkgs'.python3Packages.memory-allocator;
             mpmath = pkgs'.python3Packages.mpmath;
+            lrcalc = pkgs'.python3Packages.lrcalc;
           };
 
 
@@ -150,9 +154,14 @@
           default = pkgs.mkShellNoCC {
             packages = [ (pkgs.python3.withPackages (pypkgs: [
               pypkgs.ipython
+              pypkgs.pydot
+              pypkgs.networkx
               self'.packages.passagemath-objects
               self'.packages.passagemath-environment
-            ])) ];
+            ]))
+              pkgs.nix-tree
+              pkgs.graphviz
+            ];
           };
         };
       };
