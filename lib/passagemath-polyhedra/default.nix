@@ -6,10 +6,13 @@
   buildPythonPackage,
   autoPatchelfHook,
 
-  gmpy2,
   cysignals,
-  passagemath-environment,
+  gmpy2,
   memory-allocator,
+  passagemath-environment,
+  passagemath-glpk,
+  passagemath-modules,
+  passagemath-ppl,
   ...
 }@pkgs:
 
@@ -53,10 +56,13 @@ in
 
     nativeBuildInputs = [ autoPatchelfHook ];
     dependencies = [
-      gmpy2
       cysignals
-      passagemath-environment
+      gmpy2
       memory-allocator
+      passagemath-environment
+      passagemath-ppl
+      passagemath-modules
+      passagemath-glpk
     ];
   }
 
