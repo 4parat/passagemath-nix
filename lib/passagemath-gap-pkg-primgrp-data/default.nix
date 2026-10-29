@@ -1,13 +1,8 @@
 {
   fetchPypi,
   buildPythonPackage,
-  passagemath-objects,
+
   passagemath-environment,
-  ipykernel,
-  ipython,
-  ipywidgets,
-  jupyter-client,
-  typing-extensions,
   ...
 }@pkgs:
 
@@ -34,13 +29,7 @@ in
     };
 
     dependencies = [
-      passagemath-objects
       passagemath-environment
-      ipykernel
-      ipython
-      ipywidgets
-      jupyter-client
-      typing-extensions
     ];
   }
 

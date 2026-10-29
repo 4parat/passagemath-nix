@@ -5,24 +5,27 @@
   fetchPypi,
   autoPatchelfHook,
   buildPythonPackage,
+
+  cysignals,
+  gmpy2,
   ...
 }@pkgs:
 
 let
-  version = "10.8.13";
+  version = "0.8.10.3";
   pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
-        platform = "manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64";
+        platform = "manylinux_2_24_x86_64.manylinux_2_28_x86_64";
         abi = "cp313";
         hash = ""; # TODO
       };
 
       cp314 = {
-        platform = "manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64";
+        platform = "manylinux_2_24_x86_64.manylinux_2_28_x86_64";
         abi = "cp314";
-        hash = "sha256-I4jwREONgyaEwa8S/U3mOPuctrP7wqGUDCnquobJV/I=";
+        hash = "sha256-SQH65t/wqW3sWLTi7mnamYz4KCfQJFv4zaHxNKqBwAM=";
       };
     };
   };
@@ -48,6 +51,8 @@ in
 
     nativeBuildInputs = [ autoPatchelfHook ];
     dependencies = [
+      cysignals
+      gmpy2
     ];
   }
 

@@ -6,11 +6,12 @@
   autoPatchelfHook,
   buildPythonPackage,
 
+  cysignals,
   ...
 }@pkgs:
 
 let
-  version = "10.8.13";
+  version = "0.1.1.2";
   pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
@@ -21,9 +22,9 @@ let
       };
 
       cp314 = {
-        platform = "manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64";
+        platform = "manylinux_2_27_x86_64.manylinux_2_28_x86_64";
         abi = "cp314";
-        hash = "sha256-I4jwREONgyaEwa8S/U3mOPuctrP7wqGUDCnquobJV/I=";
+        hash = "sha256-3CH/3dyCR0TOm/Oghu6GcrO4tHMI16r5tn2l+CCes3o=";
       };
     };
   };
@@ -49,6 +50,7 @@ in
 
     nativeBuildInputs = [ autoPatchelfHook ];
     dependencies = [
+      cysignals
     ];
   }
 

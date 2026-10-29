@@ -106,6 +106,8 @@ final: prev: {
       passagemath-plot = pyFinal.callPackage ./lib/passagemath-plot/default.nix {};
       passagemath-polyhedra = pyFinal.callPackage ./lib/passagemath-polyhedra/default.nix {};
       passagemath-polymake = pyFinal.callPackage ./lib/passagemath-polymake/default.nix {};
+      passagemath-ppl = pyFinal.callPackage ./lib/passagemath-ppl/default.nix {};
+      passagemath-primesieve-primecount = pyFinal.callPackage ./lib/passagemath-primesieve-primecount/default.nix {};
       passagemath-qepcad = pyFinal.callPackage ./lib/passagemath-qepcad/default.nix {};
       passagemath-rankwidth = pyFinal.callPackage ./lib/passagemath-rankwidth/default.nix {};
       passagemath-repl = pyFinal.callPackage ./lib/passagemath-repl/default.nix {};

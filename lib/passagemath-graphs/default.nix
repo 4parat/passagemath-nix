@@ -13,7 +13,6 @@
   passagemath-categories,
   ...
 }@pkgs:
-
 let
   version = "10.8.13";
   pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";

@@ -1,8 +1,6 @@
 {
   fetchPypi,
   buildPythonPackage,
-  python,
-  lib,
   passagemath-objects,
   passagemath-environment,
   ipykernel,
@@ -14,7 +12,6 @@
 }@pkgs:
 
 let
-  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   version = "10.8.13";
   abi = "none";
   platform = "any";
