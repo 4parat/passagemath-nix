@@ -71,7 +71,7 @@ let
       cp313 = {
         platform = "manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64";
         abi = "cp313";
-        hash = ""; # TODO
+        hash = "sha256-sGs9pMsrrb5H+1fBlDTiq0t5dXPG8dDuSVcmrq9RXz8=";
       };
 
       cp314 = {

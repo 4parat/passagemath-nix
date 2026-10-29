@@ -19,9 +19,9 @@ let
   wheels = {
     x86_64-linux = {
       cp313 = {
-        platform = "manylinux_2_27_x86_64.manylinux_2_28_x86_64";
+        platform = "manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64";
         abi = "cp313";
-        hash = ""; # TODO
+        hash = "sha256-B5EepDX6aXlhAYxxuPmcPwHcJzim1CFOxAt7D6cF+yc=";
       };
 
       cp314 = {

@@ -19,9 +19,12 @@ let
   wheels = {
     x86_64-linux = {
       cp313 = {
-        platform = "abi3-manylinux_2_24_x86_64.manylinux_2_28_x86_64";
-        abi = "cp313";
-        hash = ""; # TODO
+        # Python 3.13 uses the stable-ABI wheel published for CPython 3.12.
+        dist = "cp312";
+        python = "cp312";
+        platform = "manylinux_2_24_x86_64.manylinux_2_28_x86_64";
+        abi = "abi3";
+        hash = "sha256-hh3I2ztKu5v0BIw7Z2HIvi1m380SwglxFExwdW2Zhvk=";
       };
 
       cp314 = {
@@ -46,8 +49,8 @@ in
       inherit version;
       format = "wheel";
 
-      dist = pythonTag;
-      python = pythonTag;
+      dist = wheel.dist or pythonTag;
+      python = wheel.python or pythonTag;
       inherit (wheel) abi platform hash;
     };
 

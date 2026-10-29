@@ -152,8 +152,7 @@
 
 
         devShells = {
-          default = self'.devShells.test;
-
+          default = self'.devShells.test14;
           debug = pkgs.mkShellNoCC {
             packages = [
               (pkgs.python3.withPackages (pypkgs: [
@@ -167,9 +166,23 @@
             ];
           };
 
-          test = pkgs.mkShellNoCC {
+          test313 = pkgs.mkShellNoCC {
             packages = [
-              (pkgs.python3.withPackages (pypkgs: [
+              (pkgs.python313.withPackages (pypkgs: [
+                self'.packages.passagemath-standard
+              ]))
+              pkgs.dot2tex
+              pkgs.gap
+              pkgs.graphviz
+              pkgs.meson
+              pkgs.pari
+              pkgs.singular
+              pkgs.texliveSmall
+            ];
+          };
+          test314 = pkgs.mkShellNoCC {
+            packages = [
+              (pkgs.python314.withPackages (pypkgs: [
                 self'.packages.passagemath-standard
               ]))
               pkgs.dot2tex
