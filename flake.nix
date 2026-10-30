@@ -65,6 +65,7 @@
             passagemath-primesieve-primecount = pkgs'.python3Packages.passagemath-primesieve-primecount;
             passagemath-repl = pkgs'.python3Packages.passagemath-repl;
             passagemath-schemes = pkgs'.python3Packages.passagemath-schemes;
+            passagemath-setup = pkgs'.python3Packages.passagemath-setup;
             passagemath-singular = pkgs'.python3Packages.passagemath-singular;
             passagemath-standard = pkgs'.python3Packages.passagemath-standard;
             passagemath-standard-no-symbolics = pkgs'.python3Packages.passagemath-standard-no-symbolics;
