@@ -24,6 +24,10 @@ in
       inherit version hash;
     };
 
+    postPatch = ''
+      cp ${./__init__.py} sage_setup/__init__.py
+    '';
+
     pythonImportsCheck = [
       "sage_setup"
     ];
