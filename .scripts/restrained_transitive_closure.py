@@ -133,8 +133,10 @@ ALL_PACKAGES = {
 }
 
 def strip_version(pkg):
-    matched = re.search(r'(?:python3\.13-|python3\.14-)?(.*)-', pkg).group(1)
-    return matched
+    matched = re.search(r'(?:python3\.13-|python3\.14-)?(.*)-', pkg)
+    if matched == None:
+        return pkg
+    return matched.group(1)
 
 G = nx.DiGraph(nx.nx_pydot.read_dot(sys.stdin))
 

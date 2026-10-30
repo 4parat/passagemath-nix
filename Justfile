@@ -1,6 +1,6 @@
 graph pkg:
-  nix-tree --dot {{ pkg }} 2>/dev/null | ./.scripts/restrained_transitive_closure.py | dot -Tsvg -o viz.svg
-  # nix-tree --dot {{ pkg }} 2>/dev/null | ./.scripts/restrained_transitive_closure.py
+  # nix-tree --dot {{ pkg }} 2>/dev/null | ./.scripts/restrained_transitive_closure.py | dot -Tsvg -o viz.svg
+  nix-tree --dot --derivation {{ pkg }} 2>/dev/null | ./.scripts/restrained_transitive_closure.py
 
 mkPkg pkg:
   mkdir './lib/{{ pkg }}' -p
