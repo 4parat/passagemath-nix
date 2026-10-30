@@ -1,3 +1,16 @@
+build pkg *args:
+  #!/usr/bin/env bash
+  OUTPUT="outputs/builds/$(date +%F_%H-%M)-{{ pkg }}"
+  mkdir -p "$OUTPUT"
+  nix build .#{{ pkg }} -L --keep-failed '.#{{ pkg }}' {{ args }} 2>&1 | tee "$OUTPUT/log"
+
+link pkg:
+  #!/usr/bin/env bash
+  OUTPUT="outputs/links"
+  mkdir -p $OUTPUT
+  echo "$OUTPUT/{{ pkg }}"
+  nix build .#{{ pkg }} -o "$OUTPUT/{{ pkg }}"
+
 graph pkg:
   # nix-tree --dot {{ pkg }} 2>/dev/null | ./.scripts/restrained_transitive_closure.py | dot -Tsvg -o viz.svg
   nix-tree --dot --derivation {{ pkg }} 2>/dev/null | ./.scripts/restrained_transitive_closure.py
@@ -16,7 +29,7 @@ test-custom-file module:
 
 test-passage:
   #!/usr/bin/env bash
-  OUTPUT="tests-output/$(date +%F_%H-%M)"
+  OUTPUT="outputs/tests/$(date +%F_%H-%M)"
   mkdir -p "$OUTPUT"
   sage -t --all | tee "$OUTPUT"/out.txt
 
