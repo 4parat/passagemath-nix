@@ -23,7 +23,14 @@ buildPythonPackage rec {
     passagemath-setup
     passagemath-environment
   ];
-  buildInputs = with pkgs; [gmp ntl];
+  buildInputs = with pkgs; [
+    gmp
+    mpc
+    mpfr
+    ntl
+    mpfi
+    m4ri
+  ];
   dependencies = with pkgs.python3Packages; [
     memory-allocator
     cysignals
