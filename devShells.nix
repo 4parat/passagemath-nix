@@ -1,6 +1,9 @@
-{ pkgs, self', ...}@osConfig:
 {
-  default = self'.devShells.test314;
+  pkgs,
+  self',
+  ...
+} @ osConfig: {
+  default = self'.devShells.debug;
   debug = pkgs.mkShellNoCC {
     packages = [
       (pkgs.python3.withPackages (pypkgs: [
@@ -9,6 +12,7 @@
         pypkgs.pydot
         pypkgs.networkx
       ]))
+      pkgs.alejandra
       pkgs.nix-tree
       pkgs.graphviz
     ];
@@ -64,7 +68,6 @@
     ];
     shellHook = ''
       export PKG_CONFIG_PATH="${pkgs.fflas-ffpack}/lib/pkgconfig''${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
-  '';
+    '';
   };
-
 }
