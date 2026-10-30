@@ -1,0 +1,49 @@
+{
+  buildPythonPackage,
+  fetchPypi,
+  passagemath-setup,
+  setuptools,
+  passagemath-environment,
+
+  cython,
+  pkgconfig,
+
+  passagemath-categories,
+  pkgs,
+  ...
+}:
+buildPythonPackage rec {
+  pname = "passagemath-m4ri_m4rie";
+  version = "10.8.13";
+
+  pyproject = true;
+  build-system = [
+    setuptools
+    passagemath-setup
+    passagemath-environment
+    cython
+    pkgconfig
+  ];
+
+  buildInputs = with pkgs; [
+    m4ri
+    m4rie
+    gmp
+    gd
+    libpng
+  ];
+
+  dependencies = with pkgs.python3Packages; [
+    passagemath-modules
+  ];
+
+  postPatch = ''
+    sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
+  '';
+
+  src = fetchPypi {
+    pname = "passagemath_m4ri_m4rie";
+    inherit version;
+    hash = "sha256-mgm5XXt+cBkkccXLbYi3/fFKOPZih2fwDkBoHdUU5SE=";
+  };
+}
