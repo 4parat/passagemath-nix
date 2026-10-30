@@ -2,7 +2,6 @@
   fetchPypi,
   buildPythonPackage,
 }:
-
 buildPythonPackage {
   pname = "jupyter-threejs-sage";
   version = "130";
@@ -19,6 +18,5 @@ buildPythonPackage {
     hash = "sha256-3MYYAjo3UUWYU3rpPugr3NhxDMTfj6B0b1HbxRM1blI=";
   };
 
-  pythonImportsCheck = [ "jupyter_threejs_sage" ];
+  pythonImportsCheck = ["jupyter_threejs_sage"];
 }
-

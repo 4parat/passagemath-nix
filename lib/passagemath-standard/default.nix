@@ -1,12 +1,11 @@
 {
   buildPythonPackage,
-  fetchPypi, 
+  fetchPypi,
   passagemath-symbolics,
   passagemath-standard-no-symbolics,
   passagemath-maxima,
   ...
 }:
-
 buildPythonPackage rec {
   pname = "passagemath-standard";
   version = "10.8.13";
@@ -30,4 +29,3 @@ buildPythonPackage rec {
     passagemath-maxima
   ];
 }
-

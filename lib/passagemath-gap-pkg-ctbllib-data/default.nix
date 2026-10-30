@@ -4,7 +4,6 @@
   passagemath-environment,
   ...
 }:
-
 buildPythonPackage {
   pname = "passagemath-gap-pkg-ctbllib-data";
   version = "10.8.13";
@@ -21,6 +20,5 @@ buildPythonPackage {
     hash = "sha256-19o6f8MNjGczz6oxt/QLQ1obRb+pc/y+t1XWWElVq9Y=";
   };
 
-  dependencies = [ passagemath-environment ];
+  dependencies = [passagemath-environment];
 }
-

@@ -4,7 +4,6 @@
   passagemath-environment,
   ...
 }:
-
 buildPythonPackage {
   pname = "passagemath-gap-pkg-tomlib-data";
   version = "10.8.13";
@@ -21,6 +20,5 @@ buildPythonPackage {
     hash = "sha256-NvSgq2BsIS/yubzga/kmdm1WNbI36Re5Ql781kBXkX0=";
   };
 
-  dependencies = [ passagemath-environment ];
+  dependencies = [passagemath-environment];
 }
-

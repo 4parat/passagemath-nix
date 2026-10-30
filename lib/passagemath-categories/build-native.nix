@@ -44,4 +44,3 @@ buildPythonPackage rec {
     hash = "sha256-8Ni+F4oE2EkgcQIxMIkU5uPZrv4lnPz4wU24qXidPlc=";
   };
 }
-

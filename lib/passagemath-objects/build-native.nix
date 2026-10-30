@@ -6,13 +6,11 @@
   cython,
   passagemath-setup,
   passagemath-environment,
-
   cysignals,
   gmpy2,
   pkgconfig,
   ...
-}:
-let 
+}: let
   pname = "passagemath-objects";
   snake_pname = "passagemath_objects";
   version = "10.8.13";
@@ -49,4 +47,3 @@ in
       inherit version hash;
     };
   }
-

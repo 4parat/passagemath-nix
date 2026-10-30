@@ -6,18 +6,15 @@
   autoPatchelfHook,
   buildPythonPackage,
   libz,
-
   cysignals,
   memory-allocator,
   passagemath-environment,
   passagemath-categories,
   conway-polynomials,
   ...
-}:
-
-let
+}: let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -53,8 +50,8 @@ in
       inherit (wheel) abi platform hash;
     };
 
-    nativeBuildInputs = [ autoPatchelfHook ];
-    buildInputs = [ libz ];
+    nativeBuildInputs = [autoPatchelfHook];
+    buildInputs = [libz];
     dependencies = [
       cysignals
       memory-allocator
@@ -63,5 +60,3 @@ in
       conway-polynomials
     ];
   }
-
-

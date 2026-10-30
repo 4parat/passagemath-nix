@@ -3,13 +3,11 @@
   fetchPypi,
   setuptools,
   cython,
-
   pkgconfig,
   passagemath-setup,
   passagemath-environment,
   ...
-}:
-let 
+}: let
   pname = "passagemath-conf";
   snake_pname = "passagemath_conf";
   version = "10.8.13";
@@ -22,7 +20,7 @@ in
 
     env.SAGE_CONF_FILE = "/dev/null";
     build-system = [
-        setuptools
+      setuptools
     ];
 
     src = fetchPypi {
@@ -30,4 +28,3 @@ in
       inherit version hash;
     };
   }
-

@@ -9,7 +9,7 @@ buildPythonPackage rec {
   name = "mpmath";
   version = "1.3.0";
   pyproject = true;
-  build-system = [ setuptools cython ];
+  build-system = [setuptools cython];
 
   src = fetchPypi {
     pname = "mpmath";
@@ -17,4 +17,3 @@ buildPythonPackage rec {
     hash = "sha256-eijrKpd00Ax7ySQRwZqJIJ1dp8TJqeInvoMwojoluR8=";
   };
 }
-

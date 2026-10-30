@@ -5,17 +5,14 @@
   fetchPypi,
   autoPatchelfHook,
   buildPythonPackage,
-
   libz,
   memory-allocator,
   cysignals,
   passagemath-objects,
   ...
-}:
-
-let
+}: let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -32,19 +29,19 @@ let
   };
   wheel = wheels.${stdenv.hostPlatform.system}.${pythonTag} or (throw "passagemath-highs: unsupported wheel");
 in
-buildPythonPackage {
-  pname = "passagemath-highs";
-  inherit version;
-  format = "wheel";
-  src = fetchPypi {
-    pname = "passagemath_highs";
+  buildPythonPackage {
+    pname = "passagemath-highs";
     inherit version;
     format = "wheel";
-    dist = pythonTag;
-    python = pythonTag;
-    inherit (wheel) abi platform hash;
-  };
-  nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [ libz ];
-  dependencies = [ memory-allocator cysignals passagemath-objects ];
-}
+    src = fetchPypi {
+      pname = "passagemath_highs";
+      inherit version;
+      format = "wheel";
+      dist = pythonTag;
+      python = pythonTag;
+      inherit (wheel) abi platform hash;
+    };
+    nativeBuildInputs = [autoPatchelfHook];
+    buildInputs = [libz];
+    dependencies = [memory-allocator cysignals passagemath-objects];
+  }

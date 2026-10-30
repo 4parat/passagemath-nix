@@ -9,9 +9,7 @@
   jupyter-client,
   typing-extensions,
   ...
-}@pkgs:
-
-let
+} @ pkgs: let
   version = "10.8.13";
   abi = "none";
   platform = "any";
@@ -43,4 +41,3 @@ in
       typing-extensions
     ];
   }
-

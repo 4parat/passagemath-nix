@@ -5,7 +5,6 @@
   fetchPypi,
   autoPatchelfHook,
   buildPythonPackage,
-
   passagemath-tachyon,
   cysignals,
   cython,
@@ -61,11 +60,9 @@
   passagemath-schemes,
   passagemath-singular,
   ...
-}@pkgs:
-
-let
+} @ pkgs: let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -101,8 +98,8 @@ in
       inherit (wheel) abi platform hash;
     };
 
-    nativeBuildInputs = [ autoPatchelfHook ];
-    pythonRelaxDeps = [ "sphinx" ];
+    nativeBuildInputs = [autoPatchelfHook];
+    pythonRelaxDeps = ["sphinx"];
     # Remove bytecode that collides with the same source files from passagemath-environment.
     postInstall = ''
       find "$out" -type d -name __pycache__ -prune -exec rm -rf {} +
@@ -164,4 +161,3 @@ in
       fpylll
     ];
   }
-

@@ -5,7 +5,6 @@
   fetchPypi,
   autoPatchelfHook,
   buildPythonPackage,
-  
   libz,
   cysignals,
   gmpy2,
@@ -18,11 +17,9 @@
   passagemath-categories,
   passagemath-modules,
   ...
-}:
-
-let
+}: let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -39,31 +36,30 @@ let
   };
   wheel = wheels.${stdenv.hostPlatform.system}.${pythonTag} or (throw "passagemath-plot: unsupported wheel");
 in
-buildPythonPackage {
-  pname = "passagemath-plot";
-  inherit version;
-  format = "wheel";
-  src = fetchPypi {
-    pname = "passagemath_plot";
+  buildPythonPackage {
+    pname = "passagemath-plot";
     inherit version;
     format = "wheel";
-    dist = pythonTag;
-    python = pythonTag;
-    inherit (wheel) abi platform hash;
-  };
-  nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [ libz ];
-  dependencies = [
-    cysignals
-    gmpy2
-    memory-allocator
-    numpy
-    scipy
-    pillow
-    matplotlib
-    jupyter-threejs-sage
-    passagemath-categories
-    passagemath-modules
-  ];
-}
-
+    src = fetchPypi {
+      pname = "passagemath_plot";
+      inherit version;
+      format = "wheel";
+      dist = pythonTag;
+      python = pythonTag;
+      inherit (wheel) abi platform hash;
+    };
+    nativeBuildInputs = [autoPatchelfHook];
+    buildInputs = [libz];
+    dependencies = [
+      cysignals
+      gmpy2
+      memory-allocator
+      numpy
+      scipy
+      pillow
+      matplotlib
+      jupyter-threejs-sage
+      passagemath-categories
+      passagemath-modules
+    ];
+  }

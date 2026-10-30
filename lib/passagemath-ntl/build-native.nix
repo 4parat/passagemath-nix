@@ -16,8 +16,14 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [ setuptools cython pkgconfig passagemath-setup passagemath-environment ];
-  buildInputs = with pkgs; [ gmp ntl ];
+  build-system = [
+    setuptools
+    cython
+    pkgconfig
+    passagemath-setup
+    passagemath-environment
+  ];
+  buildInputs = with pkgs; [gmp ntl];
   dependencies = with pkgs.python3Packages; [
     memory-allocator
     cysignals

@@ -1,12 +1,9 @@
 {
   fetchPypi,
   buildPythonPackage,
-
   passagemath-environment,
   ...
-}@pkgs:
-
-let
+} @ pkgs: let
   version = "10.8.13";
   abi = "none";
   platform = "any";
@@ -32,4 +29,3 @@ in
       passagemath-environment
     ];
   }
-

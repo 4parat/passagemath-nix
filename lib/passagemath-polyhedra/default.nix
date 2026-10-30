@@ -5,7 +5,6 @@
   fetchPypi,
   buildPythonPackage,
   autoPatchelfHook,
-
   cysignals,
   gmpy2,
   memory-allocator,
@@ -14,11 +13,9 @@
   passagemath-modules,
   passagemath-ppl,
   ...
-}@pkgs:
-
-let
+} @ pkgs: let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -54,7 +51,7 @@ in
       inherit (wheel) abi platform hash;
     };
 
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     dependencies = [
       cysignals
       gmpy2
@@ -65,4 +62,3 @@ in
       passagemath-glpk
     ];
   }
-

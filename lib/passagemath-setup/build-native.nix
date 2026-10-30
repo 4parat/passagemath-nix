@@ -4,8 +4,7 @@
   setuptools,
   cython,
   ...
-}:
-let 
+}: let
   pname = "passagemath-setup";
   snake_pname = "passagemath_setup";
   version = "10.8.13";
@@ -16,9 +15,9 @@ in
 
     pyproject = true;
     build-system = [
-        setuptools
-        cython
-      ];
+      setuptools
+      cython
+    ];
 
     src = fetchPypi {
       pname = snake_pname;
@@ -29,4 +28,3 @@ in
       "sage_setup"
     ];
   }
-

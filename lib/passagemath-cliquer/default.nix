@@ -6,11 +6,9 @@
   autoPatchelfHook,
   buildPythonPackage,
   ...
-}:
-
-let
+}: let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -31,18 +29,17 @@ let
   };
   wheel = wheels.${stdenv.hostPlatform.system}.${pythonTag} or (throw "passagemath-cliquer: unsupported wheel");
 in
-buildPythonPackage {
-  pname = "passagemath-cliquer";
-  inherit version;
-  format = "wheel";
-
-  src = fetchPypi {
-    pname = "passagemath_cliquer";
+  buildPythonPackage {
+    pname = "passagemath-cliquer";
     inherit version;
     format = "wheel";
-    inherit (wheel) dist python abi platform hash;
-  };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
-}
+    src = fetchPypi {
+      pname = "passagemath_cliquer";
+      inherit version;
+      format = "wheel";
+      inherit (wheel) dist python abi platform hash;
+    };
 
+    nativeBuildInputs = [autoPatchelfHook];
+  }

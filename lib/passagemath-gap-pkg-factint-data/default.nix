@@ -5,11 +5,9 @@
   fetchPypi,
   autoPatchelfHook,
   buildPythonPackage,
-
   passagemath-environment,
   ...
-}@pkgs:
-let
+} @ pkgs: let
   version = "10.8.13";
   abi = "none";
   platform = "any";
@@ -32,9 +30,8 @@ in
       inherit abi platform hash;
     };
 
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     dependencies = [
       passagemath-environment
     ];
   }
-

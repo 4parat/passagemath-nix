@@ -6,7 +6,6 @@
   autoPatchelfHook,
   buildPythonPackage,
   libz,
-
   passagemath-pari,
   cysignals,
   memory-allocator,
@@ -16,11 +15,9 @@
   passagemath-modules,
   passagemath-flint,
   ...
-}:
-
-let
+}: let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -56,8 +53,8 @@ in
       inherit (wheel) abi platform hash;
     };
 
-    nativeBuildInputs = [ autoPatchelfHook ];
-    buildInputs = [ libz ];
+    nativeBuildInputs = [autoPatchelfHook];
+    buildInputs = [libz];
     dependencies = [
       passagemath-pari
       cysignals
@@ -69,4 +66,3 @@ in
       passagemath-flint
     ];
   }
-

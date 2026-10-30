@@ -5,11 +5,9 @@
   fetchPypi,
   autoPatchelfHook,
   buildPythonPackage,
-}:
-
-let
+}: let
   version = "2.1";
-  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -26,19 +24,19 @@ let
   };
   wheel = wheels.${stdenv.hostPlatform.system}.${pythonTag} or (throw "lrcalc: unsupported wheel");
 in
-buildPythonPackage {
-  pname = "lrcalc";
-  inherit version;
-  format = "wheel";
-
-  src = fetchPypi {
+  buildPythonPackage {
     pname = "lrcalc";
     inherit version;
     format = "wheel";
-    dist = pythonTag;
-    python = pythonTag;
-    inherit (wheel) abi platform hash;
-  };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
-}
+    src = fetchPypi {
+      pname = "lrcalc";
+      inherit version;
+      format = "wheel";
+      dist = pythonTag;
+      python = pythonTag;
+      inherit (wheel) abi platform hash;
+    };
+
+    nativeBuildInputs = [autoPatchelfHook];
+  }

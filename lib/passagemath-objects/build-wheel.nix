@@ -9,11 +9,9 @@
   typing-extensions,
   cysignals,
   ...
-}:
-
-let
+}: let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -33,32 +31,30 @@ let
     wheels.${stdenv.hostPlatform.system}.${pythonTag}
       or (throw "passagemath-objects: unsupported wheel");
 in
-
-buildPythonPackage {
-  pname = "passagemath-objects";
-  inherit version;
-
-  format = "wheel";
-
-  src = fetchPypi {
-    pname = "passagemath_objects";
+  buildPythonPackage {
+    pname = "passagemath-objects";
     inherit version;
+
     format = "wheel";
 
-    dist = pythonTag;
-    python = pythonTag;
-    inherit (wheel) abi platform hash;
-  };
+    src = fetchPypi {
+      pname = "passagemath_objects";
+      inherit version;
+      format = "wheel";
 
-  nativeBuildInputs = [ autoPatchelfHook ];
-  dependencies = [
-    gmpy2
-    typing-extensions
-    cysignals
-  ];
+      dist = pythonTag;
+      python = pythonTag;
+      inherit (wheel) abi platform hash;
+    };
 
-  pythonImportsCheck = [
-    "passagemath_objects"
-  ];
-}
+    nativeBuildInputs = [autoPatchelfHook];
+    dependencies = [
+      gmpy2
+      typing-extensions
+      cysignals
+    ];
 
+    pythonImportsCheck = [
+      "passagemath_objects"
+    ];
+  }

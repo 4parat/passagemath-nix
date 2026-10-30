@@ -8,11 +8,9 @@
   cysignals,
   passagemath-environment,
   ...
-}:
-
-let
+}: let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -33,17 +31,16 @@ let
   };
   wheel = wheels.${stdenv.hostPlatform.system}.${pythonTag} or (throw "passagemath-palp: unsupported wheel");
 in
-buildPythonPackage {
-  pname = "passagemath-palp";
-  inherit version;
-  format = "wheel";
-  src = fetchPypi {
-    pname = "passagemath_palp";
+  buildPythonPackage {
+    pname = "passagemath-palp";
     inherit version;
     format = "wheel";
-    inherit (wheel) dist python abi platform hash;
-  };
-  nativeBuildInputs = [ autoPatchelfHook ];
-  dependencies = [ cysignals passagemath-environment ];
-}
-
+    src = fetchPypi {
+      pname = "passagemath_palp";
+      inherit version;
+      format = "wheel";
+      inherit (wheel) dist python abi platform hash;
+    };
+    nativeBuildInputs = [autoPatchelfHook];
+    dependencies = [cysignals passagemath-environment];
+  }

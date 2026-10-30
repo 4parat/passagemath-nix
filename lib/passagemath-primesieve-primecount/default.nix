@@ -5,14 +5,11 @@
   fetchPypi,
   autoPatchelfHook,
   buildPythonPackage,
-
   cysignals,
   ...
-}@pkgs:
-
-let
+} @ pkgs: let
   version = "0.1.1.2";
-  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -48,9 +45,8 @@ in
       inherit (wheel) abi platform hash;
     };
 
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     dependencies = [
       cysignals
     ];
   }
-

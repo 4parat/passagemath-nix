@@ -13,11 +13,9 @@
   passagemath-iml,
   passagemath-m4ri-m4rie,
   ...
-}:
-
-let
+}: let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -34,27 +32,26 @@ let
   };
   wheel = wheels.${stdenv.hostPlatform.system}.${pythonTag} or (throw "passagemath-linbox: unsupported wheel");
 in
-buildPythonPackage {
-  pname = "passagemath-linbox";
-  inherit version;
-  format = "wheel";
-  src = fetchPypi {
-    pname = "passagemath_linbox";
+  buildPythonPackage {
+    pname = "passagemath-linbox";
     inherit version;
     format = "wheel";
-    dist = pythonTag;
-    python = pythonTag;
-    inherit (wheel) abi platform hash;
-  };
-  nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [ libz ];
-  dependencies = [
-    cysignals
-    memory-allocator
-    passagemath-environment
-    passagemath-categories
-    passagemath-iml
-    passagemath-m4ri-m4rie
-  ];
-}
-
+    src = fetchPypi {
+      pname = "passagemath_linbox";
+      inherit version;
+      format = "wheel";
+      dist = pythonTag;
+      python = pythonTag;
+      inherit (wheel) abi platform hash;
+    };
+    nativeBuildInputs = [autoPatchelfHook];
+    buildInputs = [libz];
+    dependencies = [
+      cysignals
+      memory-allocator
+      passagemath-environment
+      passagemath-categories
+      passagemath-iml
+      passagemath-m4ri-m4rie
+    ];
+  }
