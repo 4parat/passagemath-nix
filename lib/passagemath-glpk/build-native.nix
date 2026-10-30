@@ -8,10 +8,6 @@
   cython,
   pkgconfig,
 
-  passagemath-objects,
-  cysignals,
-  memory-allocator,
-  typing-extensions,
   passagemath-categories,
   pkgs,
   ...
