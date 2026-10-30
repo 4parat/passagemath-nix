@@ -9,7 +9,7 @@
   outputs = inputs@{ self, flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
+      perSystem = { config, self', inputs', pkgs, system, ... }@osConfig: {
         packages = 
           let
             pkgs' = pkgs.extend self.overlays.default;
@@ -77,55 +77,7 @@
           };
 
 
-        devShells = {
-          default = self'.devShells.test314;
-          debug = pkgs.mkShellNoCC {
-            packages = [
-              (pkgs.python3.withPackages (pypkgs: [
-                pypkgs.ipython
-                pypkgs.requests
-                pypkgs.pydot
-                pypkgs.networkx
-              ]))
-              pkgs.nix-tree
-              pkgs.graphviz
-            ];
-          };
-
-          test313 = pkgs.mkShellNoCC {
-            packages = [
-              (pkgs.python313.withPackages (pypkgs: [
-                self'.packages.passagemath-standard
-                pypkgs.jupyter
-                pypkgs.notebook
-              ]))
-              pkgs.dot2tex
-              pkgs.gap
-              pkgs.graphviz
-              pkgs.meson
-              pkgs.pari
-              pkgs.singular
-              pkgs.texliveSmall
-            ];
-          };
-          test314 = pkgs.mkShellNoCC {
-            packages = [
-              (pkgs.python314.withPackages (pypkgs: [
-                self'.packages.passagemath-standard
-                pypkgs.jupyter
-              ]))
-              pkgs.pkg-config
-              pkgs.fflas-ffpack
-              pkgs.dot2tex
-              pkgs.gap
-              pkgs.graphviz
-              pkgs.meson
-              pkgs.pari
-              pkgs.singular
-              pkgs.texliveSmall
-            ];
-          };
-        };
+        devShells = (import ./devShells.nix) osConfig;
       };
 
       flake.overlays.default = import ./overlay.nix;
