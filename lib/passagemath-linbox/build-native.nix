@@ -7,12 +7,24 @@
   pkgconfig,
   passagemath-setup,
   passagemath-environment,
-  libz,
   cysignals,
   memory-allocator,
   passagemath-categories,
   passagemath-iml,
   passagemath-m4ri-m4rie,
+  passagemath-flint,
+  numpy,
+  passagemath-modules,
+  fflas-ffpack,
+  openblas,
+  gsl,
+  flint,
+  mpfr,
+  libmpc,
+  linbox,
+  gmp,
+  givaro,
+  python,
   ...
 }:
 buildPythonPackage rec {
@@ -21,15 +33,22 @@ buildPythonPackage rec {
 
   pyproject = true;
   build-system = [ setuptools cython pkgconfig passagemath-setup passagemath-environment ];
-  buildInputs = with pkgs; [ givaro gmp linbox libmpc mpfr ];
+  buildInputs = [ givaro gmp linbox libmpc mpfr fflas-ffpack flint gsl openblas ];
   dependencies = [
     cysignals
     memory-allocator
+    passagemath-modules
     passagemath-environment
     passagemath-categories
+    passagemath-flint
     passagemath-iml
     passagemath-m4ri-m4rie
+    numpy
   ];
+
+  preBuild = ''
+    export CYTHON_INCLUDE_PATH="${passagemath-flint}/${python.sitePackages}"
+  '';
 
   postPatch = ''
     sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
