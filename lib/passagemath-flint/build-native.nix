@@ -18,12 +18,16 @@ buildPythonPackage rec {
 
   pyproject = true;
   build-system = [setuptools cython pkgconfig passagemath-setup passagemath-environment];
-  buildInputs = with pkgs; [flint gmp libz mpfr];
+  buildInputs = with pkgs; [flint gmp libz mpfr gsl ntl mpfi];
   dependencies = [
     numpy
     passagemath-ntl
     passagemath-categories
   ];
+
+  postPatch = ''
+    sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
+  '';
 
   src = fetchPypi {
     pname = "passagemath_flint";
