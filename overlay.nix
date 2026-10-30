@@ -1,12 +1,14 @@
 final: prev: {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (pyFinal: pyPrev: {
-      passage-conf = pyFinal.callPackage ./lib/passage-conf/default.nix {};
+      useWheel = false;
+
       passagemath-brial = pyFinal.callPackage ./lib/passagemath-brial/default.nix {};
       passagemath-categories = pyFinal.callPackage ./lib/passagemath-categories/default.nix {};
       passagemath-cddlib = pyFinal.callPackage ./lib/passagemath-cddlib/default.nix {};
       passagemath-cliquer = pyFinal.callPackage ./lib/passagemath-cliquer/default.nix {};
       passagemath-combinat = pyFinal.callPackage ./lib/passagemath-combinat/default.nix {};
+      passagemath-conf = pyFinal.callPackage ./lib/passagemath-conf/default.nix {};
       passagemath-ecl = pyFinal.callPackage ./lib/passagemath-ecl/default.nix {};
       passagemath-eclib = pyFinal.callPackage ./lib/passagemath-eclib/default.nix {};
       passagemath-environment = pyFinal.callPackage ./lib/passagemath-environment/default.nix {};
@@ -25,13 +27,11 @@ final: prev: {
       passagemath-gsl = pyFinal.callPackage ./lib/passagemath-gsl/default.nix {};
       passagemath-highs = pyFinal.callPackage ./lib/passagemath-highs/default.nix {};
       passagemath-homfly = pyFinal.callPackage ./lib/passagemath-homfly/default.nix {};
-      jupyter-threejs-sage = pyFinal.callPackage ./lib/jupyter-threejs-sage/default.nix {};
       passagemath-iml = pyFinal.callPackage ./lib/passagemath-iml/default.nix {};
       passagemath-lcalc = pyFinal.callPackage ./lib/passagemath-lcalc/default.nix {};
       passagemath-libbraiding = pyFinal.callPackage ./lib/passagemath-libbraiding/default.nix {};
       passagemath-libecm = pyFinal.callPackage ./lib/passagemath-libecm/default.nix {};
       passagemath-linbox = pyFinal.callPackage ./lib/passagemath-linbox/default.nix {};
-      lrcalc = pyFinal.callPackage ./lib/lrcalc/default.nix {};
       passagemath-m4ri-m4rie = pyFinal.callPackage ./lib/passagemath-m4ri-m4rie/default.nix {};
       passagemath-maxima = pyFinal.callPackage ./lib/passagemath-maxima/default.nix {};
       passagemath-modules = pyFinal.callPackage ./lib/passagemath-modules/default.nix {};
@@ -49,13 +49,20 @@ final: prev: {
       passagemath-primesieve-primecount = pyFinal.callPackage ./lib/passagemath-primesieve-primecount/default.nix {};
       passagemath-repl = pyFinal.callPackage ./lib/passagemath-repl/default.nix {};
       passagemath-schemes = pyFinal.callPackage ./lib/passagemath-schemes/default.nix {};
+      passagemath-setup = pyFinal.callPackage ./lib/passagemath-setup/default.nix {};
       passagemath-singular = pyFinal.callPackage ./lib/passagemath-singular/default.nix {};
       passagemath-standard = pyFinal.callPackage ./lib/passagemath-standard/default.nix {};
       passagemath-standard-no-symbolics = pyFinal.callPackage ./lib/passagemath-standard-no-symbolics/default.nix {};
       passagemath-symbolics = pyFinal.callPackage ./lib/passagemath-symbolics/default.nix {};
       passagemath-tachyon = pyFinal.callPackage ./lib/passagemath-tachyon/default.nix {};
 
-      # Downgrades
+      # Non fitting package names
+      jupyter-threejs-sage = pyFinal.callPackage ./lib/jupyter-threejs-sage/default.nix {};
+
+      # Unpackaged external dependencies
+      lrcalc = pyFinal.callPackage ./lib/lrcalc/default.nix {};
+
+      # External downgraded dependencies
       memory-allocator = pyFinal.callPackage ./lib/memory-allocator/default.nix {};
       mpmath = pyFinal.callPackage ./lib/mpmath/default.nix {};
     }

@@ -18,12 +18,12 @@
             default = config.packages.passagemath-standard;
             testDerivation = pkgs.python3.withPackages (_: [ self'.packages.passagemath-standard ]);
 
-            passage-conf = pkgs'.python3Packages.passage-conf;
             passagemath-brial = pkgs'.python3Packages.passagemath-brial;
             passagemath-categories = pkgs'.python3Packages.passagemath-categories;
             passagemath-cddlib = pkgs'.python3Packages.passagemath-cddlib;
             passagemath-cliquer = pkgs'.python3Packages.passagemath-cliquer;
             passagemath-combinat = pkgs'.python3Packages.passagemath-combinat;
+            passagemath-conf = pkgs'.python3Packages.passagemath-conf;
             passagemath-ecl = pkgs'.python3Packages.passagemath-ecl;
             passagemath-eclib = pkgs'.python3Packages.passagemath-eclib;
             passagemath-environment = pkgs'.python3Packages.passagemath-environment;
