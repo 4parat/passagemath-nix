@@ -1,0 +1,32 @@
+{
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  cython,
+  ...
+}:
+let 
+  pname = "passagemath-setup";
+  snake_pname = "passagemath_setup";
+  version = "10.8.13";
+  hash = "sha256-kKfUFsmUmvH/BL8NhYuDFdbBUbN34tzK4r0M1mNWKCM=";
+in
+  buildPythonPackage rec {
+    inherit pname version;
+
+    pyproject = true;
+    build-system = [
+        setuptools
+        cython
+      ];
+
+    src = fetchPypi {
+      pname = snake_pname;
+      inherit version hash;
+    };
+
+    pythonImportsCheck = [
+      "sage_setup"
+    ];
+  }
+

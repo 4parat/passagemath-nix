@@ -1,20 +1,6 @@
-{
-  buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  cython,
-  ...
-}:
-buildPythonPackage rec {
-  name = "memory-allocator";
-  version = "1.3.0";
-  pyproject = true;
-  build-system = [ setuptools cython ];
-
-  src = fetchPypi {
-    pname = "mpmath";
-    inherit version;
-    hash = "sha256-eijrKpd00Ax7ySQRwZqJIJ1dp8TJqeInvoMwojoluR8=";
-  };
-}
+{ callPackage, useWheel ? true }@pkgs:
+callPackage (if useWheel
+    then (import ./build-wheel.nix)
+    else (import ./build-native.nix)
+) {}
 
