@@ -67,8 +67,6 @@ buildPythonPackage rec {
 
   pyproject = true;
   build-system = [ setuptools cython pkgconfig passagemath-setup passagemath-environment ];
-  nativeBuildInputs = with pkgs; [
-  ];
   buildInputs = with pkgs; [
     flint
     ecl
