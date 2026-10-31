@@ -41,11 +41,8 @@ buildPythonPackage rec {
   dependencies = with pkgs.python3Packages; [
     mpmath
     jinja2
-    # cysignals
-    # memory-allocator
     numpy
     passagemath-categories
-    # passagemath-flint
   ];
   postPatch = ''
     sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
