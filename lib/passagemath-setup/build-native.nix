@@ -2,7 +2,6 @@
   buildPythonPackage,
   fetchPypi,
   setuptools,
-  cython,
   ...
 }: let
   pname = "passagemath-setup";
@@ -16,8 +15,9 @@ in
     pyproject = true;
     build-system = [
       setuptools
-      cython
     ];
+
+    dependencies = [];
 
     src = fetchPypi {
       pname = snake_pname;

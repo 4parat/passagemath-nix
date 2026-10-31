@@ -9,7 +9,6 @@
   passagemath-environment,
   cysignals,
   passagemath-objects,
-  typing-extensions,
   ...
 }:
 buildPythonPackage rec {
@@ -17,15 +16,20 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [ setuptools cython pkgconfig passagemath-setup passagemath-environment ];
+  build-system = [
+    setuptools
+    passagemath-setup
+    passagemath-environment
+    passagemath-objects
+    cython
+    pkgconfig
+  ];
   buildInputs = with pkgs; [
     libhomfly
     boehmgc
   ];
   dependencies = [
     cysignals
-    passagemath-objects
-    typing-extensions
   ];
 
   postPatch = ''

@@ -3,6 +3,8 @@
   fetchPypi,
   setuptools,
   platformdirs,
+  packaging,
+  wheel,
   ...
 }:
 buildPythonPackage rec {
@@ -10,8 +12,14 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [setuptools];
-  dependencies = [platformdirs];
+  build-system = [
+    setuptools
+    wheel
+  ];
+  dependencies = [
+    packaging
+    platformdirs
+  ];
 
   src = fetchPypi {
     pname = "passagemath_environment";

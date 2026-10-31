@@ -2,6 +2,7 @@
   buildPythonPackage,
   fetchPypi,
   platformdirs,
+  packaging,
   ...
 }:
 buildPythonPackage rec {
@@ -22,6 +23,7 @@ buildPythonPackage rec {
   };
 
   dependencies = [
+    packaging
     platformdirs
   ];
 

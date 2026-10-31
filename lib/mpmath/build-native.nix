@@ -2,14 +2,15 @@
   buildPythonPackage,
   fetchPypi,
   setuptools,
-  cython,
   ...
 }:
 buildPythonPackage rec {
   name = "mpmath";
   version = "1.3.0";
   pyproject = true;
-  build-system = [setuptools cython];
+  build-system = [
+    setuptools
+  ];
 
   src = fetchPypi {
     pname = "mpmath";

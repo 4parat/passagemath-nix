@@ -2,10 +2,8 @@
   buildPythonPackage,
   fetchPypi,
   setuptools,
-  cython,
-  pkgconfig,
-  passagemath-setup,
-  passagemath-environment,
+  build,
+  packaging,
   ...
 }: let
   pname = "passagemath-conf";
@@ -21,7 +19,11 @@ in
     env.SAGE_CONF_FILE = "/dev/null";
     build-system = [
       setuptools
+      build
+      packaging
     ];
+
+    dependencies = [];
 
     src = fetchPypi {
       pname = snake_pname;

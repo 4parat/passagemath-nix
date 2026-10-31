@@ -7,6 +7,11 @@
   pkgs,
   passagemath-environment,
   memory-allocator,
+  passagemath-objects,
+  jinja2,
+  gmpy2,
+  cysignals,
+  pkgconfig,
   ...
 }:
 buildPythonPackage rec {
@@ -17,9 +22,13 @@ buildPythonPackage rec {
 
   build-system = [
     setuptools
-    cython
     passagemath-setup
+    jinja2
     passagemath-environment
+    cython
+    gmpy2
+    cysignals
+    pkgconfig
   ];
 
   buildInputs = with pkgs; [
@@ -28,11 +37,9 @@ buildPythonPackage rec {
     mpfr
   ];
 
-  dependencies = with pkgs.python3Packages; [
-    jinja2
-    memory-allocator
+  dependencies = [
     passagemath-objects
-    typing-extensions
+    memory-allocator
   ];
   postPatch = ''
     sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml

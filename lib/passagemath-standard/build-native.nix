@@ -2,8 +2,6 @@
   buildPythonPackage,
   fetchPypi,
   setuptools,
-  passagemath-setup,
-  passagemath-environment,
   passagemath-symbolics,
   passagemath-standard-no-symbolics,
   passagemath-maxima,
@@ -14,10 +12,12 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [ setuptools passagemath-setup passagemath-environment ];
+  build-system = [
+    setuptools
+  ];
   dependencies = [
-    passagemath-symbolics
     passagemath-standard-no-symbolics
+    passagemath-symbolics
     passagemath-maxima
   ];
 

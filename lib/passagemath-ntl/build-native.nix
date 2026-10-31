@@ -9,6 +9,8 @@
   passagemath-environment,
   memory-allocator,
   cysignals,
+  passagemath-categories,
+  passagemath-modules,
   ...
 }:
 buildPythonPackage rec {
@@ -18,25 +20,24 @@ buildPythonPackage rec {
   pyproject = true;
   build-system = [
     setuptools
+    passagemath-setup
+    passagemath-modules
     cython
     pkgconfig
-    passagemath-setup
-    passagemath-environment
   ];
   buildInputs = with pkgs; [
     gmp
-    mpc
+    libmpc
     mpfr
     ntl
     mpfi
     m4ri
   ];
-  dependencies = with pkgs.python3Packages; [
-    memory-allocator
+  dependencies = [
     cysignals
+    memory-allocator
     passagemath-environment
     passagemath-categories
-    passagemath-modules
   ];
   postPatch = ''
     sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml

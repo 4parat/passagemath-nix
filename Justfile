@@ -4,6 +4,12 @@ build pkg *args:
   mkdir -p "$OUTPUT"
   nix build .#{{ pkg }} -L --keep-failed '.#{{ pkg }}' {{ args }} 2>&1 | tee "$OUTPUT/log"
 
+# Compare the four Python/build variants with the pinned upstream metadata.
+check-dependencies:
+  mkdir -p outputs/dependency-audit
+  nix eval --impure --json .#pkgs.x86_64-linux --apply 'import ./.scripts/dependency-matrix.nix' > outputs/dependency-audit/evaluation.json
+  nix develop .#debug --command python .scripts/check-dependencies.py outputs/dependency-audit/evaluation.json
+
 link build-mode pkg:
   #!/usr/bin/env bash
   OUTPUT="outputs/links"

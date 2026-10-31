@@ -10,6 +10,7 @@
   numpy,
   passagemath-ntl,
   passagemath-categories,
+  passagemath-modules,
   ...
 }:
 buildPythonPackage rec {
@@ -17,7 +18,7 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [setuptools cython pkgconfig passagemath-setup passagemath-environment];
+  build-system = [setuptools cython pkgconfig passagemath-setup passagemath-environment passagemath-modules];
   buildInputs = with pkgs; [flint gmp libz mpfr gsl ntl mpfi];
   dependencies = [
     numpy

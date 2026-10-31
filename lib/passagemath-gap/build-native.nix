@@ -7,7 +7,6 @@
   pkgconfig,
   passagemath-setup,
   passagemath-environment,
-  libz,
   cysignals,
   dot2tex,
   memory-allocator,
@@ -18,6 +17,7 @@
   passagemath-gap-pkg-smallgrp-data,
   passagemath-modules,
   passagemath-repl,
+  gmpy2,
   ...
 }:
 buildPythonPackage rec {
@@ -25,14 +25,20 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [ setuptools cython pkgconfig passagemath-setup passagemath-environment ];
+  build-system = [
+    setuptools
+    passagemath-setup
+    passagemath-modules
+    cython
+    gmpy2
+    pkgconfig
+  ];
   buildInputs = with pkgs; [gmp mpfr gap libmpc];
-  dependencies = with pkgs; [
+  dependencies = [
     cysignals
     dot2tex
     memory-allocator
     pexpect
-    passagemath-modules
     passagemath-environment
     passagemath-categories
     passagemath-gap-pkg-factint-data

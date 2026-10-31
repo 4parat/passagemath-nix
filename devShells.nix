@@ -11,6 +11,7 @@
         pypkgs.requests
         pypkgs.pydot
         pypkgs.networkx
+        pypkgs.packaging
       ]))
       pkgs.alejandra
       pkgs.nix-tree
@@ -18,14 +19,13 @@
     ];
   };
 
-  wheel =
-    let
-      pkgs' = self'.pkgs.wheel;
-    in
-      pkgs'.mkShellNoCC {
+  wheel = let
+    pkgs' = self'.pkgs.wheel;
+  in
+    pkgs'.mkShellNoCC {
       packages = [
         (pkgs'.python3.withPackages (pypkgs: [
-          self'.packages.passagemath-standard
+          pypkgs.passagemath-standard
           pypkgs.jupyter
           pypkgs.notebook
         ]))
@@ -39,14 +39,13 @@
       ];
     };
 
-  native =
-    let
-      pkgs' = self'.pkgs.native;
-    in
-      pkgs'.mkShellNoCC {
+  native = let
+    pkgs' = self'.pkgs.native;
+  in
+    pkgs'.mkShellNoCC {
       packages = [
         (pkgs'.python3.withPackages (pypkgs: [
-          self'.packages.passagemath-standard
+          pypkgs.passagemath-standard
           pypkgs.jupyter
           pypkgs.notebook
         ]))
@@ -60,7 +59,8 @@
       ];
     };
 
-  /* fflas-ffpack = pkgs.mkShellNoCC {
+  /*
+     fflas-ffpack = pkgs.mkShellNoCC {
     packages = [
       (pkgs.python314.withPackages (pypkgs: [
         self'.packages.passagemath-standard
@@ -96,5 +96,6 @@
     shellHook = ''
       export PKG_CONFIG_PATH="${pkgs.fflas-ffpack}/lib/pkgconfig''${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
     '';
-  }; */
+  };
+  */
 }

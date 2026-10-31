@@ -9,7 +9,6 @@
   passagemath-environment,
   cysignals,
   passagemath-objects,
-  typing-extensions,
   ...
 }:
 buildPythonPackage rec {
@@ -17,7 +16,12 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [ setuptools cython pkgconfig passagemath-setup passagemath-environment ];
+  build-system = [
+    setuptools
+    pkgconfig
+    passagemath-setup
+    cython
+  ];
   buildInputs = with pkgs; [
     tachyon
     libz
@@ -26,7 +30,6 @@ buildPythonPackage rec {
     cysignals
     passagemath-environment
     passagemath-objects
-    typing-extensions
   ];
 
   postPatch = ''

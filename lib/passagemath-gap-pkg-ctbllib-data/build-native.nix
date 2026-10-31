@@ -4,9 +4,6 @@
   passagemath-setup,
   setuptools,
   passagemath-environment,
-  cython,
-  pkgconfig,
-  pkgs,
   ...
 }:
 buildPythonPackage rec {
@@ -17,13 +14,11 @@ buildPythonPackage rec {
   build-system = [
     setuptools
     passagemath-setup
-    passagemath-environment
   ];
 
-  /* buildInputs = with pkgs; [
+  dependencies = [
+    passagemath-environment
   ];
-  dependencies = with pkgs; [
-  ]; */
 
   postPatch = ''
     sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml

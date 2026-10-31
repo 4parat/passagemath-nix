@@ -9,6 +9,7 @@
   passagemath-environment,
   passagemath-objects,
   passagemath-categories,
+  cysignals,
   ...
 }:
 buildPythonPackage rec {
@@ -16,15 +17,20 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [ setuptools cython pkgconfig passagemath-setup passagemath-environment ];
+  build-system = [
+    setuptools
+    pkgconfig
+    passagemath-setup
+    passagemath-categories
+    passagemath-environment
+    passagemath-objects
+    cython
+  ];
   buildInputs = with pkgs; [
     cliquer
   ];
-  dependencies = [
-    passagemath-objects
-    passagemath-categories
-    # No additional runtime dependencies.
-  ];
+  # Cython imports the cysignals C API at runtime; upstream omits Requires-Dist.
+  dependencies = [cysignals];
 
   postPatch = ''
     sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml

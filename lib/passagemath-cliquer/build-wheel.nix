@@ -5,6 +5,7 @@
   fetchPypi,
   autoPatchelfHook,
   buildPythonPackage,
+  cysignals,
   ...
 }: let
   version = "10.8.13";
@@ -42,4 +43,6 @@ in
     };
 
     nativeBuildInputs = [autoPatchelfHook];
+    # The wheel imports cysignals.signals although its metadata omits it.
+    dependencies = [cysignals];
   }

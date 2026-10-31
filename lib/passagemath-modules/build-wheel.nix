@@ -8,10 +8,11 @@
   libz,
   cysignals,
   memory-allocator,
-  numpy,
   mpmath,
   passagemath-categories,
   passagemath-environment,
+  gmpy2,
+  numpy,
   passagemath-flint,
   ...
 }: let
@@ -55,12 +56,16 @@ in
     nativeBuildInputs = [autoPatchelfHook];
     buildInputs = [libz];
     dependencies = [
-      mpmath
+      gmpy2
       cysignals
       memory-allocator
-      numpy
       passagemath-categories
       passagemath-environment
-      passagemath-flint
+      mpmath
     ];
+
+    optional-dependencies = {
+      numpy = [numpy];
+      flint = [passagemath-flint];
+    };
   }

@@ -1,7 +1,6 @@
 {
   fetchPypi,
   buildPythonPackage,
-  memory-allocator,
   cysignals,
   pexpect,
   passagemath-environment,
@@ -19,7 +18,14 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [ setuptools cython pkgconfig passagemath-setup passagemath-environment ];
+  build-system = [
+    setuptools
+    passagemath-setup
+    pkgconfig
+    passagemath-categories
+    cython
+    cysignals
+  ];
   nativeBuildInputs = with pkgs; [
     ecl
   ];
@@ -27,12 +33,9 @@ buildPythonPackage rec {
     # No additional system libraries are required.
   ];
   dependencies = [
-      memory-allocator
-      cysignals
-      pexpect
-      passagemath-environment
-      passagemath-categories
-      passagemath-ecl
+    pexpect
+    passagemath-ecl
+    passagemath-environment
   ];
 
   postPatch = ''

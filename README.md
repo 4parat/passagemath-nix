@@ -89,6 +89,32 @@ Overlay at `passagemath-nix.overlays.native`.
 As of now, some packages inside nixpkgs are too recent for some passagemath packages, so they have been downgraded inside an overlay.
 passagemath packages are also built inside this overlay.
 
+## Dependency profiles and validation
+
+Individual packages propagate their required runtime dependencies. Python
+packages needed only for compilation are kept in `build-system`.
+`passagemath-modules` exposes its NumPy and FLINT extras explicitly in both
+overlays:
+
+```nix
+pkgs.python313.withPackages (ps: [
+  ps.passagemath-modules
+] ++ ps.passagemath-modules.optional-dependencies.numpy
+  ++ ps.passagemath-modules.optional-dependencies.flint)
+```
+
+`passagemath-standard` already includes these dependencies.
+
+Run `just check-dependencies` to evaluate all packages for wheel/native builds
+with Python 3.13 and 3.14 on `x86_64-linux`, then compare their Python dependency
+closures and version constraints with the pinned source archives. Missing
+archives are reported as unverified; the checker does not download them. To
+require complete archive coverage, run the checker with `--require-all-sources`.
+This check complements package builds and their runtime dependency checks.
+Additional runtime dependencies are reported for review: for example, Cliquer
+needs `cysignals` to import its Cython extension even though upstream omits that
+requirement from its metadata.
+
 ## Unit test
 
 Not all unit tests are passing, but the only failing test I inspected was probably due to a bug inside the unit test.

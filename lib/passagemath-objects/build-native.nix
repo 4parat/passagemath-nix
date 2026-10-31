@@ -9,6 +9,7 @@
   cysignals,
   gmpy2,
   pkgconfig,
+  typing-extensions,
   ...
 }: let
   pname = "passagemath-objects";
@@ -22,9 +23,9 @@ in
     pyproject = true;
 
     dependencies = [
-      cysignals
       gmpy2
-      pkgconfig
+      cysignals
+      typing-extensions
     ];
     buildInputs = with pkgs; [
       gmp
@@ -33,12 +34,12 @@ in
     ];
     build-system = [
       setuptools
-      cython
       passagemath-setup
       passagemath-environment
+      cython
+      pkgconfig
     ];
 
-    dontCheckRuntimeDeps = true;
     postPatch = ''
       sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
     '';

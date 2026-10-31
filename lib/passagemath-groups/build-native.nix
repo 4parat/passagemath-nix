@@ -18,14 +18,20 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [ setuptools cython pkgconfig passagemath-setup passagemath-environment ];
+  build-system = [
+    setuptools
+    passagemath-setup
+    cython
+    pkgconfig
+    passagemath-environment
+    passagemath-flint
+  ];
   buildInputs = with pkgs; [
     flint
     gap
     gmp
   ];
   dependencies = [
-    passagemath-flint
     passagemath-categories
     passagemath-gap
     passagemath-modules

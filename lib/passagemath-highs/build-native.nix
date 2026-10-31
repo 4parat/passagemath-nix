@@ -18,16 +18,22 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [ setuptools cython pkgconfig passagemath-setup passagemath-environment ];
+  build-system = [
+    setuptools
+    pkgconfig
+    passagemath-setup
+    passagemath-categories
+    passagemath-environment
+    cython
+  ];
   buildInputs = with pkgs; [
     highs
     libz
   ];
   dependencies = [
+    passagemath-objects
     memory-allocator
     cysignals
-    passagemath-objects
-    passagemath-categories
   ];
 
   postPatch = ''

@@ -4,12 +4,13 @@
   passagemath-setup,
   setuptools,
   passagemath-environment,
-
   cython,
   pkgconfig,
-
   passagemath-categories,
   pkgs,
+  passagemath-objects,
+  memory-allocator,
+  cysignals,
   ...
 }:
 buildPythonPackage rec {
@@ -19,10 +20,11 @@ buildPythonPackage rec {
   pyproject = true;
   build-system = [
     setuptools
+    pkgconfig
     passagemath-setup
+    passagemath-categories
     passagemath-environment
     cython
-    pkgconfig
   ];
 
   buildInputs = with pkgs; [
@@ -33,8 +35,10 @@ buildPythonPackage rec {
     libz
   ];
 
-  dependencies = with pkgs.python3Packages; [
-    passagemath-categories
+  dependencies = [
+    passagemath-objects
+    memory-allocator
+    cysignals
   ];
 
   postPatch = ''
@@ -47,4 +51,3 @@ buildPythonPackage rec {
     hash = "sha256-7VNjIRAALpu0SuuUh+taNzOxxJp1rM2SndGykSm6fDY=";
   };
 }
-

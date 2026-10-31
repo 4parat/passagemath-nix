@@ -3,8 +3,6 @@
   buildPythonPackage,
   fetchPypi,
   setuptools,
-  cython,
-  pkgconfig,
   passagemath-setup,
   passagemath-environment,
   ...
@@ -14,7 +12,10 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [ setuptools cython pkgconfig passagemath-setup passagemath-environment ];
+  build-system = [
+    setuptools
+    passagemath-setup
+  ];
   buildInputs = with pkgs; [
     # No external libraries required.
   ];

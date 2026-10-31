@@ -9,7 +9,14 @@ buildPythonPackage rec {
   name = "memory-allocator";
   version = "0.1.4";
   pyproject = true;
-  build-system = [setuptools cython];
+  build-system = [
+    setuptools
+    cython
+  ];
+
+  dependencies = [
+    cython
+  ];
 
   src = fetchPypi {
     pname = "memory_allocator";

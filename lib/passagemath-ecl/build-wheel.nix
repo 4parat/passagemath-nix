@@ -5,9 +5,7 @@
   fetchPypi,
   autoPatchelfHook,
   buildPythonPackage,
-  memory-allocator,
   cysignals,
-  pexpect,
   passagemath-environment,
   passagemath-categories,
   ...
@@ -51,10 +49,8 @@ in
 
     nativeBuildInputs = [autoPatchelfHook];
     dependencies = [
-      memory-allocator
       cysignals
-      pexpect
-      passagemath-environment
       passagemath-categories
+      passagemath-environment
     ];
   }

@@ -1,14 +1,11 @@
 {
   buildPythonPackage,
   fetchPypi,
-  passagemath-setup,
   setuptools,
-  passagemath-environment,
-
   cython,
-  pkgconfig,
-
   pkgs,
+  cysignals,
+  gmpy2,
   ...
 }:
 buildPythonPackage rec {
@@ -18,38 +15,19 @@ buildPythonPackage rec {
   pyproject = true;
   build-system = [
     setuptools
-    passagemath-setup
-    passagemath-environment
     cython
-    pkgconfig
-  ];
-
-  nativeBuildInputs = with pkgs; [
-    # ppl
-    # flint
   ];
 
   buildInputs = with pkgs; [
-    # givaro
     libmpc
     mpfr
     gmp
     ppl
-    ntl
-    # flint
-    # gsl
-    # m4ri
-    # gd
-    # libpng
   ];
 
-  dependencies = with pkgs.python3Packages; [
-    gmpy2
+  dependencies = [
     cysignals
-    # numpy
-    # passagemath-modules
-    # passagemath-flint
-    # passagemath-categories
+    gmpy2
   ];
 
   postPatch = ''

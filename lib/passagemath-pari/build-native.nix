@@ -4,11 +4,16 @@
   passagemath-setup,
   setuptools,
   passagemath-environment,
-
   cython,
   pkgconfig,
-
   pkgs,
+  cysignals,
+  memory-allocator,
+  passagemath-categories,
+  conway-polynomials,
+  passagemath-modules,
+  passagemath-flint,
+  mpmath,
   ...
 }:
 buildPythonPackage rec {
@@ -19,7 +24,9 @@ buildPythonPackage rec {
   build-system = [
     setuptools
     passagemath-setup
-    passagemath-environment
+    passagemath-modules
+    passagemath-flint
+    mpmath
     cython
     pkgconfig
   ];
@@ -44,12 +51,12 @@ buildPythonPackage rec {
     # libpng
   ];
 
-  dependencies = with pkgs.python3Packages; [
-    numpy
-    passagemath-modules
-    passagemath-flint
+  dependencies = [
+    cysignals
+    memory-allocator
+    passagemath-environment
+    passagemath-categories
     conway-polynomials
-    # passagemath-categories
   ];
 
   postPatch = ''

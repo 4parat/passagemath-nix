@@ -5,12 +5,9 @@
   fetchPypi,
   autoPatchelfHook,
   buildPythonPackage,
-  memory-allocator,
-  cysignals,
   pexpect,
   passagemath-environment,
   passagemath-ecl,
-  passagemath-categories,
   ...
 } @ pkgs: let
   version = "10.8.13";
@@ -53,11 +50,8 @@ in
 
     nativeBuildInputs = [autoPatchelfHook];
     dependencies = [
-      memory-allocator
-      cysignals
       pexpect
-      passagemath-environment
-      passagemath-categories
       passagemath-ecl
+      passagemath-environment
     ];
   }

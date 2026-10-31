@@ -1,5 +1,4 @@
 {
-  pkgs,
   buildPythonPackage,
   fetchPypi,
   setuptools,
@@ -32,18 +31,23 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [ setuptools cython pkgconfig passagemath-setup passagemath-environment ];
-  buildInputs = [ givaro gmp linbox libmpc mpfr fflas-ffpack flint gsl openblas ];
+  build-system = [
+    setuptools
+    passagemath-setup
+    passagemath-flint
+    passagemath-modules
+    cython
+    numpy
+    pkgconfig
+  ];
+  buildInputs = [givaro gmp linbox libmpc mpfr fflas-ffpack flint gsl openblas];
   dependencies = [
     cysignals
     memory-allocator
-    passagemath-modules
     passagemath-environment
     passagemath-categories
-    passagemath-flint
     passagemath-iml
     passagemath-m4ri-m4rie
-    numpy
   ];
 
   preBuild = ''

@@ -4,12 +4,14 @@
   passagemath-setup,
   setuptools,
   passagemath-environment,
-
   cython,
   pkgconfig,
-
   passagemath-categories,
   pkgs,
+  cysignals,
+  memory-allocator,
+  passagemath-modules,
+  numpy,
   ...
 }:
 buildPythonPackage rec {
@@ -20,8 +22,8 @@ buildPythonPackage rec {
   build-system = [
     setuptools
     passagemath-setup
-    passagemath-environment
     cython
+    numpy
     pkgconfig
   ];
 
@@ -33,7 +35,11 @@ buildPythonPackage rec {
     libpng
   ];
 
-  dependencies = with pkgs.python3Packages; [
+  dependencies = [
+    cysignals
+    memory-allocator
+    passagemath-environment
+    passagemath-categories
     passagemath-modules
   ];
 

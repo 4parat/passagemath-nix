@@ -6,12 +6,14 @@
   cython,
   passagemath-setup,
   passagemath-environment,
-  libz,
   cysignals,
   memory-allocator,
   numpy,
   mpmath,
   passagemath-categories,
+  gmpy2,
+  jinja2,
+  pkgconfig,
   passagemath-flint,
   ...
 }:
@@ -22,9 +24,11 @@ buildPythonPackage rec {
   pyproject = true;
   build-system = [
     setuptools
-    cython
     passagemath-setup
-    passagemath-environment
+    jinja2
+    pkgconfig
+    cython
+    numpy
   ];
 
   nativeBuildInputs = [
@@ -38,12 +42,19 @@ buildPythonPackage rec {
     gsl
   ];
 
-  dependencies = with pkgs.python3Packages; [
-    mpmath
-    jinja2
-    numpy
+  dependencies = [
+    gmpy2
+    cysignals
+    memory-allocator
     passagemath-categories
+    passagemath-environment
+    mpmath
   ];
+
+  optional-dependencies = {
+    numpy = [numpy];
+    flint = [passagemath-flint];
+  };
   postPatch = ''
     sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
   '';
