@@ -96,8 +96,8 @@
 
       flake.overlays = {
         default = self.overlays.wheel;
-        native = (import ./overlay.nix) { useWheel = false };
-        wheel = (import ./overlay.nix) { useWheel = true };
+        native = (import ./overlay.nix) { useWheel = false; };
+        wheel = (import ./overlay.nix) { useWheel = true; };
       };
     };
 }
