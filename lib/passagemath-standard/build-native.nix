@@ -1,0 +1,33 @@
+{
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  passagemath-setup,
+  passagemath-environment,
+  passagemath-symbolics,
+  passagemath-standard-no-symbolics,
+  passagemath-maxima,
+  ...
+}:
+buildPythonPackage rec {
+  pname = "passagemath-standard";
+  version = "10.8.13";
+
+  pyproject = true;
+  build-system = [ setuptools passagemath-setup passagemath-environment ];
+  dependencies = [
+    passagemath-symbolics
+    passagemath-standard-no-symbolics
+    passagemath-maxima
+  ];
+
+  postPatch = ''
+    sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
+  '';
+
+  src = fetchPypi {
+    pname = "passagemath_standard";
+    inherit version;
+    hash = "sha256-a3/gOoiXvp9a0hW4uOD8noq99n6WUn/LbbBI8AjlFA4=";
+  };
+}
