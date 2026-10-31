@@ -8,9 +8,7 @@ This repo does not contain every packages of passagemath, only the packages requ
 
 ### With Flakes
 
-To use the package from another flake, add this input and include
-`passagemath-nix.packages.<system>.default` in a Python environment:
-
+You can use the provided overlays (`wheel` or `native`) :
 ```nix
 # flake.nix
 {
@@ -29,8 +27,11 @@ To use the package from another flake, add this input and include
       in
       pkgs.mkShell {
         packages = [
-          (pkgs.python313.withPackages (ps: [
+          (pkgs.python3.withPackages (ps: [
             ps.passagemath-standard
+            ps.pwntools
+            ps.ipython
+            ps.jupyter
             ps.requests
           ]))
         ];
@@ -40,6 +41,7 @@ To use the package from another flake, add this input and include
 ```
 
 Then run `nix develop` in that project and start Sage with `sage`.
+Alternatively, you can grab packages from `passagemath.packages.<system>` (built via wheel).
 
 ### Without Flakes (legacy Nix)
 
@@ -70,9 +72,17 @@ Once the shell has loaded, use `sage` or run `sage -c "print(2 + 2)"`.
 
 ## Platforms
 
+### Wheel
+
 Currently only on `x86_64-linux` with Python3.13 and Python3.14 for wheels.
+I recommand to use the wheel overlay since modules are long to build.
+Overlay at `passagemath-nix.overlays.wheel`.
+
+### Native
+
 Native build is tested on `x86_64-linux`.
 It *could* work on `aarch64-linux`, `x86_64-darwin`, `aarch64-darwin`, but It has not been tested.
+Overlay at `passagemath-nix.overlays.native`.
 
 ## Downgrades
 
@@ -86,6 +96,6 @@ TODO : Test unit tests failure against known unit tests failures in `passagemath
 
 ## Other infos
 
-- `%%cython` magic cells work when natively compiled (sometimes ...)
+- `%%cython` magic cells works half the time. Needs further investigation.
 - Feel free to fork or implement into [nixpkgs](https://github.com/NixOS/nixpkgs), I will update this `README` if I decide to merge it on `nixpkgs` someday.
 
