@@ -1,8 +1,8 @@
-build pkg *args:
+build build-mode pkg *args:
   #!/usr/bin/env bash
   OUTPUT="outputs/builds/$(date +%F_%H-%M)-{{ pkg }}"
   mkdir -p "$OUTPUT"
-  nix build .#{{ pkg }} -L --keep-failed '.#{{ pkg }}' {{ args }} 2>&1 | tee "$OUTPUT/log"
+  nix build .#pkgs.x86_64-linux.{{ build-mode }}.python3Packages.{{ pkg }} -L --keep-failed {{ args }} 2>&1 | tee "$OUTPUT/log"
 
 # Compare the four Python/build variants with the pinned upstream metadata.
 check-dependencies:

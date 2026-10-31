@@ -15,7 +15,7 @@
   ...
 }:
 buildPythonPackage rec {
-  pname = "passagemath-m4ri_m4rie";
+  pname = "passagemath-m4ri-m4rie";
   version = "10.8.13";
 
   pyproject = true;

@@ -70,4 +70,6 @@
         }
       )
     ];
+
+  primecount = final.callPackage ./lib/primecount/default.nix {};
 }
