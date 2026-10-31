@@ -1,8 +1,9 @@
-**result
+**result*
 **.tmp
 outputs
 test-results
 cysignals_crash_logs
 imports.log
 __pycache__
+**.ipynb
 
