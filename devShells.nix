@@ -18,23 +18,49 @@
     ];
   };
 
-  test313 = pkgs.mkShellNoCC {
-    packages = [
-      (pkgs.python313.withPackages (pypkgs: [
-        self'.packages.passagemath-standard
-        pypkgs.jupyter
-        pypkgs.notebook
-      ]))
-      pkgs.dot2tex
-      pkgs.gap
-      pkgs.graphviz
-      pkgs.meson
-      pkgs.pari
-      pkgs.singular
-      pkgs.texliveSmall
-    ];
-  };
-  fflas-ffpack = pkgs.mkShellNoCC {
+  wheel =
+    let
+      pkgs' = self'.pkgs.wheel;
+    in
+      pkgs'.mkShellNoCC {
+      packages = [
+        (pkgs'.python3.withPackages (pypkgs: [
+          self'.packages.passagemath-standard
+          pypkgs.jupyter
+          pypkgs.notebook
+        ]))
+        pkgs'.dot2tex
+        pkgs'.gap
+        pkgs'.graphviz
+        pkgs'.meson
+        pkgs'.pari
+        pkgs'.singular
+        pkgs'.texliveSmall
+      ];
+    };
+
+  native =
+    let
+      pkgs' = self'.pkgs.native;
+    in
+      pkgs'.mkShellNoCC {
+      packages = [
+        (pkgs'.python3.withPackages (pypkgs: [
+          self'.packages.passagemath-standard
+          pypkgs.jupyter
+          pypkgs.notebook
+        ]))
+        pkgs'.dot2tex
+        pkgs'.gap
+        pkgs'.graphviz
+        pkgs'.meson
+        pkgs'.pari
+        pkgs'.singular
+        pkgs'.texliveSmall
+      ];
+    };
+
+  /* fflas-ffpack = pkgs.mkShellNoCC {
     packages = [
       (pkgs.python314.withPackages (pypkgs: [
         self'.packages.passagemath-standard
@@ -66,8 +92,9 @@
       pkgs.ntl
       pkgs.gcc
     ];
+
     shellHook = ''
       export PKG_CONFIG_PATH="${pkgs.fflas-ffpack}/lib/pkgconfig''${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
     '';
-  };
+  }; */
 }

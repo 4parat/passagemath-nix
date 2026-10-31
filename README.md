@@ -64,14 +64,11 @@ in overlayPkgs.mkShell {
 Then `nix-shell`
 Once the shell has loaded, use `sage` or run `sage -c "print(2 + 2)"`.
 
-## Implementation choices
-
-I made the decision to build the packages **using native ABI wheels**, which is not the [nixpkgs](https://github.com/NixOS/nixpkgs) way to build Python packages, but it's faster to build since it does not require costly compilation.
-
 ## Platforms
 
-Currently only on `x86_64-linux` with Python3.13 and Python3.14.
-Other platforms will most likely not be implemented unless it's done on `nixpkgs` from source.
+Currently only on `x86_64-linux` with Python3.13 and Python3.14 for wheels.
+Native build is tested on `x86_64-linux`.
+It *could* work on `aarch64-linux`, `x86_64-darwin`, `aarch64-darwin`, but It has not been tested.
 
 ## Downgrades
 
@@ -81,4 +78,10 @@ passagemath packages are also built inside this overlay.
 ## Unit test
 
 Not all unit tests are passing, but the only failing test I inspected was probably due to a bug inside the unit test.
+TODO : Test unit tests failure against known unit tests failures in `passagemath/pkgs/*/known-test-failures.json`
+
+## Other infos
+
+- `%%cython` magic cells work when natively compiled (sometimes ...)
+- Feel free to fork or implement into [nixpkgs](https://github.com/NixOS/nixpkgs), I will update this `README` if I decide to merge it on `nixpkgs` someday.
 

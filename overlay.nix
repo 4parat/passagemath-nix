@@ -1,11 +1,10 @@
-final: prev: {
+useWheel: final: prev: {
   pythonPackagesExtensions =
     prev.pythonPackagesExtensions
     ++ [
       (
         pyFinal: pyPrev: {
-          useWheel = false;
-
+          inherit useWheel;
           passagemath-brial = pyFinal.callPackage ./lib/passagemath-brial/default.nix {};
           passagemath-categories = pyFinal.callPackage ./lib/passagemath-categories/default.nix {};
           passagemath-cddlib = pyFinal.callPackage ./lib/passagemath-cddlib/default.nix {};

@@ -23,7 +23,7 @@
       } @ osConfig: {
         formatter = pkgs.alejandra;
         packages = let
-          pkgs' = pkgs.extend self.overlays.default;
+          pkgs' = self'.pkgs.wheel;
         in {
           default = config.packages.passagemath-standard;
           testDerivation = pkgs.python3.withPackages (_: [self'.packages.passagemath-standard]);
@@ -88,8 +88,17 @@
         };
 
         devShells = (import ./devShells.nix) osConfig;
+
+        pkgs.wheel = pkgs.extend self.overlays.wheel;
+        pkgs.native = pkgs.extend self.overlays.native;
       };
 
-      flake.overlays.default = import ./overlay.nix;
+      transposition.pkgs.adHoc = true;
+
+      flake.overlays = {
+        default = self.overlays.wheel;
+        native = (import ./overlay.nix) false;
+        wheel = (import ./overlay.nix) true;
+      };
     };
 }

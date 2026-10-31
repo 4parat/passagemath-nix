@@ -4,16 +4,24 @@ build pkg *args:
   mkdir -p "$OUTPUT"
   nix build .#{{ pkg }} -L --keep-failed '.#{{ pkg }}' {{ args }} 2>&1 | tee "$OUTPUT/log"
 
-link pkg:
+link build-mode pkg:
   #!/usr/bin/env bash
   OUTPUT="outputs/links"
   mkdir -p $OUTPUT
   echo "$OUTPUT/{{ pkg }}"
   nix build .#{{ pkg }} -o "$OUTPUT/{{ pkg }}"
 
-graph pkg:
-  # nix-tree --dot {{ pkg }} 2>/dev/null | ./.scripts/restrained_transitive_closure.py | dot -Tsvg -o viz.svg
-  nix-tree --dot --derivation {{ pkg }} 2>/dev/null | ./.scripts/restrained_transitive_closure.py
+graph build-mode pkg:
+  #!/usr/bin/env bash
+  OUTPUT='outputs/graphs/{{ build-mode }}/{{ pkg }}'
+  mkdir -p "$OUTPUT"
+  nix-tree --dot --derivation .#pkgs.x86_64-linux.{{ build-mode }}.python3Packages.{{ pkg }} 2>/dev/null > $OUTPUT/raw.dot
+  cat "$OUTPUT/raw.dot" | ./.scripts/restrained_transitive_closure.py > $OUTPUT/restrained_closure.dot
+
+vizGraph build-mode pkg:
+  #!/usr/bin/env bash
+  OUTPUT='outputs/graphs/{{ build-mode }}/{{ pkg }}'
+  cat $OUTPUT/restrained_closure.dot | dot -Tsvg -o $OUTPUT/retrained_closure.svg
 
 mkPkg pkg:
   mkdir './lib/{{ pkg }}' -p
@@ -25,16 +33,15 @@ test-custom-file module:
   OUTPUT="tests/$(date +%F_%H-%M)"
   mkdir -p "$OUTPUT"
   python -m unittest tests.{{ module }}
-  
 
-test-passage:
+test-passage-docstring build-mode:
   #!/usr/bin/env bash
-  OUTPUT="outputs/tests/$(date +%F_%H-%M)"
+  OUTPUT="outputs/tests/{{ build-mode }}/passage-builtins/$(date +%F_%H-%M)"
   mkdir -p "$OUTPUT"
-  sage -t --all | tee "$OUTPUT"/out.txt
+  nix develop .#{{ build-mode }} -c sage -t --all --logfile "$OUTPUT/timings2.json" | tee "$OUTPUT"/out.txt
 
 [script("nix", "develop", ".#test314", "--command", "bash")]
-test-passage-file file:
+test-passage-file build-mode:
   #!/usr/bin/env bash
   OUTPUT="tests/$(date +%F_%H-%M)"
   mkdir -p "$OUTPUT"
