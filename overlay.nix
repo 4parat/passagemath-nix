@@ -1,4 +1,4 @@
-useWheel: final: prev: {
+{ useWheel ? true }: final: prev: {
   pythonPackagesExtensions =
     prev.pythonPackagesExtensions
     ++ [

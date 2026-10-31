@@ -88,7 +88,6 @@
         };
 
         devShells = (import ./devShells.nix) osConfig;
-
         pkgs.wheel = pkgs.extend self.overlays.wheel;
         pkgs.native = pkgs.extend self.overlays.native;
       };
@@ -97,8 +96,8 @@
 
       flake.overlays = {
         default = self.overlays.wheel;
-        native = (import ./overlay.nix) false;
-        wheel = (import ./overlay.nix) true;
+        native = (import ./overlay.nix) { useWheel = false };
+        wheel = (import ./overlay.nix) { useWheel = true };
       };
     };
 }

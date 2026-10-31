@@ -23,13 +23,15 @@ To use the package from another flake, add this input and include
   outputs = { nixpkgs, passagemath-nix, ... }: {
     devShells.x86_64-linux.default =
       let
-        pkgs = import nixpkgs { system = "x86_64-linux"; };
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          overlays = [ passagemath-nix.overlays.wheel ] };
       in
       pkgs.mkShell {
         packages = [
-          (pkgs.python313.withPackages (pypkgs: [
-            passagemath-nix.packages.x86_64-linux.default
-            pypkgs.requests
+          (pkgs.python313.withPackages (ps: [
+            ps.passagemath-standard
+            ps.requests
           ]))
         ];
       };
@@ -47,19 +49,21 @@ without cloning it first:
 ```nix
 # shell.nix
 let
-  pkgs = import <nixpkgs> {};
-  src = pkgs.fetchFromGitHub {
-    owner = "4parat";
-    repo = "passagemath-nix";
-    rev = "main";
-    hash = "CHANGE_ME";
+  flake = builtins.getFlake "github:4parat/passagemath-nix";
+  pkgs = import <nixpkgs> {
+    overlays = [ ((import "${flake}/overlay.nix") { useWheel = true; }) ];
   };
-  overlayPkgs = import (src + "/default.nix") { inherit pkgs; };
-in overlayPkgs.mkShell {
+in
+pkgs.mkShell {
   packages = [
-    (overlayPkgs.python3.withPackages (ps: [ ps.passagemath-standard ]))
+    (pkgs.python314.withPackages (ps: [
+      ps.passagemath-standard
+      ps.pwntools
+      ps.ipython
+      ps.jupyter
+    ]))
   ];
-}'
+}
 ```
 Then `nix-shell`
 Once the shell has loaded, use `sage` or run `sage -c "print(2 + 2)"`.
