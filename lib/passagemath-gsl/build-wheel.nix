@@ -1,0 +1,64 @@
+{
+  lib,
+  stdenv,
+  python,
+  fetchPypi,
+  autoPatchelfHook,
+  buildPythonPackage,
+  libz,
+  cysignals,
+  memory-allocator,
+  numpy,
+  passagemath-categories,
+  passagemath-environment,
+  passagemath-modules,
+  ...
+} @ pkgs: let
+  version = "10.8.13";
+  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
+  wheels = {
+    x86_64-linux = {
+      cp313 = {
+        platform = "manylinux_2_27_x86_64.manylinux_2_28_x86_64";
+        abi = "cp313";
+        hash = "sha256-+Z/t1dpJGv5rLsJquSaqsyAlH7ku/NZ3m1MIGHUnmck=";
+      };
+
+      cp314 = {
+        platform = "manylinux_2_27_x86_64.manylinux_2_28_x86_64";
+        abi = "cp314";
+        hash = "sha256-CwUnlO1KWWP0LaSYh+zKeFloieQPy7bPeGz6i2xeuDw=";
+      };
+    };
+  };
+  wheel =
+    wheels.${stdenv.hostPlatform.system}.${pythonTag}
+      or (throw "passagemath-gsl: unsupported wheel");
+in
+  buildPythonPackage {
+    pname = "passagemath-gsl";
+    inherit version;
+
+    format = "wheel";
+
+    src = fetchPypi {
+      pname = "passagemath_gsl";
+      inherit version;
+      format = "wheel";
+
+      dist = pythonTag;
+      python = pythonTag;
+      inherit (wheel) abi platform hash;
+    };
+
+    nativeBuildInputs = [autoPatchelfHook];
+    buildInputs = [libz];
+    dependencies = [
+      cysignals
+      memory-allocator
+      numpy
+      passagemath-categories
+      passagemath-environment
+      passagemath-modules
+    ];
+  }
