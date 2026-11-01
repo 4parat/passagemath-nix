@@ -80,16 +80,14 @@ final: prev: {
       passagemath-tachyon = pyFinal.callPackage ./lib/passagemath-tachyon/default.nix { };
 
       # Non fitting package names
-      jupyter-threejs-sage = pyFinal.callPackage ./lib/jupyter-threejs-sage/default.nix { };
-
-      # Unpackaged external dependencies
-      lrcalc = pyFinal.callPackage ./lib/lrcalc/default.nix { };
+      # jupyter-threejs-sage = pyFinal.callPackage ./lib/jupyter-threejs-sage/default.nix { };
 
       # External downgraded dependencies
-      memory-allocator = pyFinal.callPackage ./lib/memory-allocator/default.nix { };
-      mpmath = pyFinal.callPackage ./lib/mpmath/default.nix { };
-    })
+      memory-allocator = final.callPackage ./lib/memory-allocator/default.nix { };
+      mpmath = final.callPackage ./lib/mpmath/default.nix { };
+  })
   ];
 
+  # Native package downgrade
   primecount = final.callPackage ./lib/primecount/default.nix { };
 }

@@ -28,6 +28,7 @@
   jupyter-client,
   ipywidgets,
   fpylll,
+  lrcalc-python,
   passagemath-brial,
   passagemath-cddlib,
   passagemath-cliquer,
@@ -106,7 +107,7 @@ buildPythonPackage {
     find "$out" -type d -name __pycache__ -prune -exec rm -rf {} +
   '';
   dependencies = [
-    lrcalc
+    lrcalc-python
     passagemath-brial
     passagemath-cddlib
     passagemath-cliquer
