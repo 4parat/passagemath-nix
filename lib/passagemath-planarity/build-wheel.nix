@@ -7,9 +7,10 @@
   buildPythonPackage,
   passagemath-graphs,
   ...
-}: let
+}:
+let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -28,20 +29,28 @@
       };
     };
   };
-  wheel = wheels.${stdenv.hostPlatform.system}.${pythonTag} or (throw "passagemath-planarity: unsupported wheel");
+  wheel =
+    wheels.${stdenv.hostPlatform.system}.${pythonTag}
+      or (throw "passagemath-planarity: unsupported wheel");
 in
-  buildPythonPackage {
-    pname = "passagemath-planarity";
+buildPythonPackage {
+  pname = "passagemath-planarity";
+  inherit version;
+  format = "wheel";
+
+  src = fetchPypi {
+    pname = "passagemath_planarity";
     inherit version;
     format = "wheel";
+    inherit (wheel)
+      dist
+      python
+      abi
+      platform
+      hash
+      ;
+  };
 
-    src = fetchPypi {
-      pname = "passagemath_planarity";
-      inherit version;
-      format = "wheel";
-      inherit (wheel) dist python abi platform hash;
-    };
-
-    nativeBuildInputs = [autoPatchelfHook];
-    dependencies = [passagemath-graphs];
-  }
+  nativeBuildInputs = [ autoPatchelfHook ];
+  dependencies = [ passagemath-graphs ];
+}

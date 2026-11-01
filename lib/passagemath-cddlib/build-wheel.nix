@@ -8,9 +8,10 @@
   passagemath-environment,
   cysignals,
   ...
-}: let
+}:
+let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -29,20 +30,31 @@
       };
     };
   };
-  wheel = wheels.${stdenv.hostPlatform.system}.${pythonTag} or (throw "passagemath-cddlib: unsupported wheel");
+  wheel =
+    wheels.${stdenv.hostPlatform.system}.${pythonTag}
+      or (throw "passagemath-cddlib: unsupported wheel");
 in
-  buildPythonPackage {
-    pname = "passagemath-cddlib";
+buildPythonPackage {
+  pname = "passagemath-cddlib";
+  inherit version;
+  format = "wheel";
+
+  src = fetchPypi {
+    pname = "passagemath_cddlib";
     inherit version;
     format = "wheel";
+    inherit (wheel)
+      dist
+      python
+      abi
+      platform
+      hash
+      ;
+  };
 
-    src = fetchPypi {
-      pname = "passagemath_cddlib";
-      inherit version;
-      format = "wheel";
-      inherit (wheel) dist python abi platform hash;
-    };
-
-    nativeBuildInputs = [autoPatchelfHook];
-    dependencies = [passagemath-environment cysignals];
-  }
+  nativeBuildInputs = [ autoPatchelfHook ];
+  dependencies = [
+    passagemath-environment
+    cysignals
+  ];
+}

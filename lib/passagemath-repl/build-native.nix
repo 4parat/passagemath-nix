@@ -16,7 +16,11 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [setuptools passagemath-setup passagemath-environment];
+  build-system = [
+    setuptools
+    passagemath-setup
+    passagemath-environment
+  ];
   dependencies = [
     passagemath-objects
     passagemath-environment
@@ -33,5 +37,5 @@ buildPythonPackage rec {
     hash = "sha256-LkfqLoA7BAzWj0M7aUpWczCWQx/MXobupXtW5HvV0mg=";
   };
 
-  pythonImportsCheck = ["sage.repl.preparse"];
+  pythonImportsCheck = [ "sage.repl.preparse" ];
 }

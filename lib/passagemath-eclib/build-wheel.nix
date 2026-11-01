@@ -11,9 +11,10 @@
   passagemath-modules,
   passagemath-ntl,
   ...
-}: let
+}:
+let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -28,28 +29,29 @@
       };
     };
   };
-  wheel = wheels.${stdenv.hostPlatform.system}.${pythonTag} or (throw "passagemath-eclib: unsupported wheel");
+  wheel =
+    wheels.${stdenv.hostPlatform.system}.${pythonTag} or (throw "passagemath-eclib: unsupported wheel");
 in
-  buildPythonPackage {
-    pname = "passagemath-eclib";
+buildPythonPackage {
+  pname = "passagemath-eclib";
+  inherit version;
+  format = "wheel";
+
+  src = fetchPypi {
+    pname = "passagemath_eclib";
     inherit version;
     format = "wheel";
+    dist = pythonTag;
+    python = pythonTag;
+    inherit (wheel) abi platform hash;
+  };
 
-    src = fetchPypi {
-      pname = "passagemath_eclib";
-      inherit version;
-      format = "wheel";
-      dist = pythonTag;
-      python = pythonTag;
-      inherit (wheel) abi platform hash;
-    };
-
-    nativeBuildInputs = [autoPatchelfHook];
-    dependencies = [
-      cysignals
-      memory-allocator
-      passagemath-linbox
-      passagemath-modules
-      passagemath-ntl
-    ];
-  }
+  nativeBuildInputs = [ autoPatchelfHook ];
+  dependencies = [
+    cysignals
+    memory-allocator
+    passagemath-linbox
+    passagemath-modules
+    passagemath-ntl
+  ];
+}

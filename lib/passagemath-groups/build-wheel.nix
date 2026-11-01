@@ -10,9 +10,10 @@
   passagemath-gap,
   passagemath-modules,
   ...
-} @ pkgs: let
+}@pkgs:
+let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -32,29 +33,29 @@
     wheels.${stdenv.hostPlatform.system}.${pythonTag}
       or (throw "passagemath-groups: unsupported wheel");
 in
-  buildPythonPackage {
-    pname = "passagemath-groups";
-    inherit version;
+buildPythonPackage {
+  pname = "passagemath-groups";
+  inherit version;
 
+  format = "wheel";
+
+  src = fetchPypi {
+    pname = "passagemath_groups";
+    inherit version;
     format = "wheel";
 
-    src = fetchPypi {
-      pname = "passagemath_groups";
-      inherit version;
-      format = "wheel";
+    dist = pythonTag;
+    python = pythonTag;
+    inherit (wheel) abi platform hash;
+  };
 
-      dist = pythonTag;
-      python = pythonTag;
-      inherit (wheel) abi platform hash;
-    };
-
-    nativeBuildInputs = [autoPatchelfHook];
-    buildInputs = [
-      libz
-    ];
-    dependencies = [
-      passagemath-categories
-      passagemath-gap
-      passagemath-modules
-    ];
-  }
+  nativeBuildInputs = [ autoPatchelfHook ];
+  buildInputs = [
+    libz
+  ];
+  dependencies = [
+    passagemath-categories
+    passagemath-gap
+    passagemath-modules
+  ];
+}

@@ -22,8 +22,23 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [ setuptools cython pkgconfig passagemath-setup passagemath-environment ];
-  buildInputs = with pkgs; [ gmp libmpc mpfr singular givaro flint gsl ntl ];
+  build-system = [
+    setuptools
+    cython
+    pkgconfig
+    passagemath-setup
+    passagemath-environment
+  ];
+  buildInputs = with pkgs; [
+    gmp
+    libmpc
+    mpfr
+    singular
+    givaro
+    flint
+    gsl
+    ntl
+  ];
   dependencies = [
     passagemath-pari
     cysignals

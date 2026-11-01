@@ -7,9 +7,10 @@
   buildPythonPackage,
   cysignals,
   ...
-}: let
+}:
+let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -28,18 +29,26 @@
       };
     };
   };
-  wheel = wheels.${stdenv.hostPlatform.system}.${pythonTag} or (throw "passagemath-libbraiding: unsupported wheel");
+  wheel =
+    wheels.${stdenv.hostPlatform.system}.${pythonTag}
+      or (throw "passagemath-libbraiding: unsupported wheel");
 in
-  buildPythonPackage {
-    pname = "passagemath-libbraiding";
+buildPythonPackage {
+  pname = "passagemath-libbraiding";
+  inherit version;
+  format = "wheel";
+  src = fetchPypi {
+    pname = "passagemath_libbraiding";
     inherit version;
     format = "wheel";
-    src = fetchPypi {
-      pname = "passagemath_libbraiding";
-      inherit version;
-      format = "wheel";
-      inherit (wheel) dist python abi platform hash;
-    };
-    nativeBuildInputs = [autoPatchelfHook];
-    dependencies = [cysignals];
-  }
+    inherit (wheel)
+      dist
+      python
+      abi
+      platform
+      hash
+      ;
+  };
+  nativeBuildInputs = [ autoPatchelfHook ];
+  dependencies = [ cysignals ];
+}

@@ -1,2 +1,2 @@
 { callPackage, ... }:
-callPackage ./build-wheel.nix {}
+callPackage ./build-wheel.nix { }

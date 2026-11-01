@@ -71,4 +71,3 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (primesieve.meta) teams platforms;
   };
 })
-

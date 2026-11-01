@@ -2,8 +2,4 @@
   callPackage,
   useWheel ? true,
 }:
-callPackage (
-  if useWheel
-  then (import ./build-wheel.nix)
-  else (import ./build-native.nix)
-) {}
+callPackage (if useWheel then (import ./build-wheel.nix) else (import ./build-native.nix)) { }

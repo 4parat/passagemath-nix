@@ -33,7 +33,12 @@ buildPythonPackage rec {
     gmpy2
     pkgconfig
   ];
-  buildInputs = with pkgs; [gmp mpfr gap libmpc];
+  buildInputs = with pkgs; [
+    gmp
+    mpfr
+    gap
+    libmpc
+  ];
   dependencies = [
     cysignals
     dot2tex

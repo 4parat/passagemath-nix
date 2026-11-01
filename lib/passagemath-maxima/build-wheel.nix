@@ -9,9 +9,10 @@
   passagemath-environment,
   passagemath-ecl,
   ...
-} @ pkgs: let
+}@pkgs:
+let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -32,26 +33,26 @@
     wheels.${stdenv.hostPlatform.system}.${pythonTag}
       or (throw "passagemath-maxima: unsupported wheel");
 in
-  buildPythonPackage {
-    pname = "passagemath-maxima";
-    inherit version;
+buildPythonPackage {
+  pname = "passagemath-maxima";
+  inherit version;
 
+  format = "wheel";
+
+  src = fetchPypi {
+    pname = "passagemath_maxima";
+    inherit version;
     format = "wheel";
 
-    src = fetchPypi {
-      pname = "passagemath_maxima";
-      inherit version;
-      format = "wheel";
+    dist = pythonTag;
+    python = pythonTag;
+    inherit (wheel) abi platform hash;
+  };
 
-      dist = pythonTag;
-      python = pythonTag;
-      inherit (wheel) abi platform hash;
-    };
-
-    nativeBuildInputs = [autoPatchelfHook];
-    dependencies = [
-      pexpect
-      passagemath-ecl
-      passagemath-environment
-    ];
-  }
+  nativeBuildInputs = [ autoPatchelfHook ];
+  dependencies = [
+    pexpect
+    passagemath-ecl
+    passagemath-environment
+  ];
+}

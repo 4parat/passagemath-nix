@@ -13,9 +13,10 @@
   passagemath-modules,
   passagemath-ppl,
   ...
-} @ pkgs: let
+}@pkgs:
+let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -35,30 +36,30 @@
     wheels.${stdenv.hostPlatform.system}.${pythonTag}
       or (throw "passagemath-polyhedra: unsupported wheel");
 in
-  buildPythonPackage {
-    pname = "passagemath-polyhedra";
-    inherit version;
+buildPythonPackage {
+  pname = "passagemath-polyhedra";
+  inherit version;
 
+  format = "wheel";
+
+  src = fetchPypi {
+    pname = "passagemath_polyhedra";
+    inherit version;
     format = "wheel";
 
-    src = fetchPypi {
-      pname = "passagemath_polyhedra";
-      inherit version;
-      format = "wheel";
+    dist = pythonTag;
+    python = pythonTag;
+    inherit (wheel) abi platform hash;
+  };
 
-      dist = pythonTag;
-      python = pythonTag;
-      inherit (wheel) abi platform hash;
-    };
-
-    nativeBuildInputs = [autoPatchelfHook];
-    dependencies = [
-      cysignals
-      gmpy2
-      memory-allocator
-      passagemath-environment
-      passagemath-ppl
-      passagemath-modules
-      passagemath-glpk
-    ];
-  }
+  nativeBuildInputs = [ autoPatchelfHook ];
+  dependencies = [
+    cysignals
+    gmpy2
+    memory-allocator
+    passagemath-environment
+    passagemath-ppl
+    passagemath-modules
+    passagemath-glpk
+  ];
+}

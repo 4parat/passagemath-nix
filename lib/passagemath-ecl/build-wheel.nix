@@ -9,9 +9,10 @@
   passagemath-environment,
   passagemath-categories,
   ...
-} @ pkgs: let
+}@pkgs:
+let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -28,29 +29,28 @@
     };
   };
   wheel =
-    wheels.${stdenv.hostPlatform.system}.${pythonTag}
-      or (throw "passagemath-ecl: unsupported wheel");
+    wheels.${stdenv.hostPlatform.system}.${pythonTag} or (throw "passagemath-ecl: unsupported wheel");
 in
-  buildPythonPackage {
-    pname = "passagemath-ecl";
-    inherit version;
+buildPythonPackage {
+  pname = "passagemath-ecl";
+  inherit version;
 
+  format = "wheel";
+
+  src = fetchPypi {
+    pname = "passagemath_ecl";
+    inherit version;
     format = "wheel";
 
-    src = fetchPypi {
-      pname = "passagemath_ecl";
-      inherit version;
-      format = "wheel";
+    dist = pythonTag;
+    python = pythonTag;
+    inherit (wheel) abi platform hash;
+  };
 
-      dist = pythonTag;
-      python = pythonTag;
-      inherit (wheel) abi platform hash;
-    };
-
-    nativeBuildInputs = [autoPatchelfHook];
-    dependencies = [
-      cysignals
-      passagemath-categories
-      passagemath-environment
-    ];
-  }
+  nativeBuildInputs = [ autoPatchelfHook ];
+  dependencies = [
+    cysignals
+    passagemath-categories
+    passagemath-environment
+  ];
+}

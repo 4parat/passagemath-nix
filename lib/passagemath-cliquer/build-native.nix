@@ -30,7 +30,7 @@ buildPythonPackage rec {
     cliquer
   ];
   # Cython imports the cysignals C API at runtime; upstream omits Requires-Dist.
-  dependencies = [cysignals];
+  dependencies = [ cysignals ];
 
   src = fetchPypi {
     pname = "passagemath_cliquer";

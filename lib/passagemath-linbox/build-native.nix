@@ -40,7 +40,17 @@ buildPythonPackage rec {
     numpy
     pkgconfig
   ];
-  buildInputs = [givaro gmp linbox libmpc mpfr fflas-ffpack flint gsl openblas];
+  buildInputs = [
+    givaro
+    gmp
+    linbox
+    libmpc
+    mpfr
+    fflas-ffpack
+    flint
+    gsl
+    openblas
+  ];
   dependencies = [
     cysignals
     memory-allocator

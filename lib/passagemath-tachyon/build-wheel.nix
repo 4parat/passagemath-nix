@@ -10,9 +10,10 @@
   passagemath-environment,
   passagemath-objects,
   ...
-}: let
+}:
+let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -35,27 +36,27 @@
     wheels.${stdenv.hostPlatform.system}.${pythonTag}
       or (throw "passagemath-tachyon: unsupported wheel");
 in
-  buildPythonPackage {
-    pname = "passagemath-tachyon";
-    inherit version;
+buildPythonPackage {
+  pname = "passagemath-tachyon";
+  inherit version;
 
+  format = "wheel";
+
+  src = fetchPypi {
+    pname = "passagemath_tachyon";
+    inherit version;
     format = "wheel";
 
-    src = fetchPypi {
-      pname = "passagemath_tachyon";
-      inherit version;
-      format = "wheel";
+    dist = wheel.dist or pythonTag;
+    python = wheel.python or pythonTag;
+    inherit (wheel) abi platform hash;
+  };
 
-      dist = wheel.dist or pythonTag;
-      python = wheel.python or pythonTag;
-      inherit (wheel) abi platform hash;
-    };
-
-    nativeBuildInputs = [autoPatchelfHook];
-    buildInputs = [libz];
-    dependencies = [
-      cysignals
-      passagemath-environment
-      passagemath-objects
-    ];
-  }
+  nativeBuildInputs = [ autoPatchelfHook ];
+  buildInputs = [ libz ];
+  dependencies = [
+    cysignals
+    passagemath-environment
+    passagemath-objects
+  ];
+}

@@ -17,9 +17,10 @@
   passagemath-gap-pkg-smallgrp-data,
   passagemath-repl,
   ...
-} @ pkgs: let
+}@pkgs:
+let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -36,41 +37,40 @@
     };
   };
   wheel =
-    wheels.${stdenv.hostPlatform.system}.${pythonTag}
-      or (throw "passagemath-gap: unsupported wheel");
+    wheels.${stdenv.hostPlatform.system}.${pythonTag} or (throw "passagemath-gap: unsupported wheel");
 in
-  buildPythonPackage {
-    pname = "passagemath-gap";
-    inherit version;
+buildPythonPackage {
+  pname = "passagemath-gap";
+  inherit version;
 
+  format = "wheel";
+
+  src = fetchPypi {
+    pname = "passagemath_gap";
+    inherit version;
     format = "wheel";
 
-    src = fetchPypi {
-      pname = "passagemath_gap";
-      inherit version;
-      format = "wheel";
+    dist = pythonTag;
+    python = pythonTag;
+    inherit (wheel) abi platform hash;
+  };
 
-      dist = pythonTag;
-      python = pythonTag;
-      inherit (wheel) abi platform hash;
-    };
+  nativeBuildInputs = [ autoPatchelfHook ];
 
-    nativeBuildInputs = [autoPatchelfHook];
+  buildInputs = [
+    libz
+  ];
 
-    buildInputs = [
-      libz
-    ];
-
-    dependencies = [
-      cysignals
-      dot2tex
-      memory-allocator
-      pexpect
-      passagemath-environment
-      passagemath-categories
-      passagemath-gap-pkg-factint-data
-      passagemath-gap-pkg-primgrp-data
-      passagemath-gap-pkg-smallgrp-data
-      passagemath-repl
-    ];
-  }
+  dependencies = [
+    cysignals
+    dot2tex
+    memory-allocator
+    pexpect
+    passagemath-environment
+    passagemath-categories
+    passagemath-gap-pkg-factint-data
+    passagemath-gap-pkg-primgrp-data
+    passagemath-gap-pkg-smallgrp-data
+    passagemath-repl
+  ];
+}

@@ -20,5 +20,5 @@ buildPythonPackage {
     hash = "sha256-NvSgq2BsIS/yubzga/kmdm1WNbI36Re5Ql781kBXkX0=";
   };
 
-  dependencies = [passagemath-environment];
+  dependencies = [ passagemath-environment ];
 }

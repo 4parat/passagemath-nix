@@ -18,8 +18,19 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [ setuptools cython pkgconfig passagemath-setup passagemath-environment ];
-  buildInputs = with pkgs; [ gmp mpfr libmpc boost ];
+  build-system = [
+    setuptools
+    cython
+    pkgconfig
+    passagemath-setup
+    passagemath-environment
+  ];
+  buildInputs = with pkgs; [
+    gmp
+    mpfr
+    libmpc
+    boost
+  ];
   dependencies = [
     gmpy2
     memory-allocator

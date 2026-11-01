@@ -7,9 +7,10 @@
   buildPythonPackage,
   cysignals,
   ...
-} @ pkgs: let
+}@pkgs:
+let
   version = "0.1.1.2";
-  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -29,24 +30,24 @@
     wheels.${stdenv.hostPlatform.system}.${pythonTag}
       or (throw "passagemath-primesieve-primecount: unsupported wheel");
 in
-  buildPythonPackage {
-    pname = "passagemath-primesieve-primecount";
-    inherit version;
+buildPythonPackage {
+  pname = "passagemath-primesieve-primecount";
+  inherit version;
 
+  format = "wheel";
+
+  src = fetchPypi {
+    pname = "passagemath_primesieve_primecount";
+    inherit version;
     format = "wheel";
 
-    src = fetchPypi {
-      pname = "passagemath_primesieve_primecount";
-      inherit version;
-      format = "wheel";
+    dist = pythonTag;
+    python = pythonTag;
+    inherit (wheel) abi platform hash;
+  };
 
-      dist = pythonTag;
-      python = pythonTag;
-      inherit (wheel) abi platform hash;
-    };
-
-    nativeBuildInputs = [autoPatchelfHook];
-    dependencies = [
-      cysignals
-    ];
-  }
+  nativeBuildInputs = [ autoPatchelfHook ];
+  dependencies = [
+    cysignals
+  ];
+}

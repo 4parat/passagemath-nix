@@ -18,5 +18,5 @@ buildPythonPackage {
     platform = "any";
     hash = "sha256-UE4TlAxM1382bF7l5lF0FtFuuHjDvcgFbbOkJpmcWMw=";
   };
-  dependencies = [passagemath-environment];
+  dependencies = [ passagemath-environment ];
 }

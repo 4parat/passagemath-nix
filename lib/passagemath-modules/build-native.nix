@@ -52,8 +52,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    numpy = [numpy];
-    flint = [passagemath-flint];
+    numpy = [ numpy ];
+    flint = [ passagemath-flint ];
   };
   src = fetchPypi {
     pname = "passagemath_modules";

@@ -18,5 +18,5 @@ buildPythonPackage {
     hash = "sha256-3MYYAjo3UUWYU3rpPugr3NhxDMTfj6B0b1HbxRM1blI=";
   };
 
-  pythonImportsCheck = ["jupyter_threejs_sage"];
+  pythonImportsCheck = [ "jupyter_threejs_sage" ];
 }

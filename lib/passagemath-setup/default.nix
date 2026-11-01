@@ -1,2 +1,2 @@
-{callPackage}:
-callPackage ./build-native.nix {}
+{ callPackage }:
+callPackage ./build-native.nix { }

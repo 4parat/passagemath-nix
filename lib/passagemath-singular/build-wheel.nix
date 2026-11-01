@@ -15,9 +15,10 @@
   passagemath-modules,
   passagemath-flint,
   ...
-}: let
+}:
+let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -37,32 +38,32 @@
     wheels.${stdenv.hostPlatform.system}.${pythonTag}
       or (throw "passagemath-singular: unsupported wheel");
 in
-  buildPythonPackage {
-    pname = "passagemath-singular";
-    inherit version;
+buildPythonPackage {
+  pname = "passagemath-singular";
+  inherit version;
 
+  format = "wheel";
+
+  src = fetchPypi {
+    pname = "passagemath_singular";
+    inherit version;
     format = "wheel";
 
-    src = fetchPypi {
-      pname = "passagemath_singular";
-      inherit version;
-      format = "wheel";
+    dist = pythonTag;
+    python = pythonTag;
+    inherit (wheel) abi platform hash;
+  };
 
-      dist = pythonTag;
-      python = pythonTag;
-      inherit (wheel) abi platform hash;
-    };
-
-    nativeBuildInputs = [autoPatchelfHook];
-    buildInputs = [libz];
-    dependencies = [
-      passagemath-pari
-      cysignals
-      memory-allocator
-      pexpect
-      passagemath-environment
-      passagemath-categories
-      passagemath-modules
-      passagemath-flint
-    ];
-  }
+  nativeBuildInputs = [ autoPatchelfHook ];
+  buildInputs = [ libz ];
+  dependencies = [
+    passagemath-pari
+    cysignals
+    memory-allocator
+    pexpect
+    passagemath-environment
+    passagemath-categories
+    passagemath-modules
+    passagemath-flint
+  ];
+}

@@ -24,7 +24,13 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
-  build-system = [ setuptools cython pkgconfig passagemath-setup passagemath-environment ];
+  build-system = [
+    setuptools
+    cython
+    pkgconfig
+    passagemath-setup
+    passagemath-environment
+  ];
   buildInputs = with pkgs; [
     gsl
     flint
@@ -34,17 +40,17 @@ buildPythonPackage rec {
     singular
   ];
   dependencies = [
-      gmpy2
-      cysignals
-      numpy
-      sympy
+    gmpy2
+    cysignals
+    numpy
+    sympy
 
-      passagemath-categories
-      passagemath-environment
-      passagemath-ntl
-      passagemath-gsl
-      passagemath-flint
-      passagemath-modules
+    passagemath-categories
+    passagemath-environment
+    passagemath-ntl
+    passagemath-gsl
+    passagemath-flint
+    passagemath-modules
   ];
 
   src = fetchPypi {

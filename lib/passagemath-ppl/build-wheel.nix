@@ -8,9 +8,10 @@
   cysignals,
   gmpy2,
   ...
-} @ pkgs: let
+}@pkgs:
+let
   version = "0.8.10.3";
-  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -27,28 +28,27 @@
     };
   };
   wheel =
-    wheels.${stdenv.hostPlatform.system}.${pythonTag}
-      or (throw "passagemath-ppl: unsupported wheel");
+    wheels.${stdenv.hostPlatform.system}.${pythonTag} or (throw "passagemath-ppl: unsupported wheel");
 in
-  buildPythonPackage {
-    pname = "passagemath-ppl";
-    inherit version;
+buildPythonPackage {
+  pname = "passagemath-ppl";
+  inherit version;
 
+  format = "wheel";
+
+  src = fetchPypi {
+    pname = "passagemath_ppl";
+    inherit version;
     format = "wheel";
 
-    src = fetchPypi {
-      pname = "passagemath_ppl";
-      inherit version;
-      format = "wheel";
+    dist = pythonTag;
+    python = pythonTag;
+    inherit (wheel) abi platform hash;
+  };
 
-      dist = pythonTag;
-      python = pythonTag;
-      inherit (wheel) abi platform hash;
-    };
-
-    nativeBuildInputs = [autoPatchelfHook];
-    dependencies = [
-      cysignals
-      gmpy2
-    ];
-  }
+  nativeBuildInputs = [ autoPatchelfHook ];
+  dependencies = [
+    cysignals
+    gmpy2
+  ];
+}

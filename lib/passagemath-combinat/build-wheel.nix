@@ -11,9 +11,10 @@
   passagemath-categories,
   passagemath-environment,
   ...
-}: let
+}:
+let
   version = "10.8.13";
-  pythonTag = "cp${lib.replaceStrings ["."] [""] python.pythonVersion}";
+  pythonTag = "cp${lib.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
   wheels = {
     x86_64-linux = {
       cp313 = {
@@ -28,28 +29,30 @@
       };
     };
   };
-  wheel = wheels.${stdenv.hostPlatform.system}.${pythonTag} or (throw "passagemath-combinat: unsupported wheel");
+  wheel =
+    wheels.${stdenv.hostPlatform.system}.${pythonTag}
+      or (throw "passagemath-combinat: unsupported wheel");
 in
-  buildPythonPackage {
-    pname = "passagemath-combinat";
+buildPythonPackage {
+  pname = "passagemath-combinat";
+  inherit version;
+  format = "wheel";
+
+  src = fetchPypi {
+    pname = "passagemath_combinat";
     inherit version;
     format = "wheel";
+    dist = pythonTag;
+    python = pythonTag;
+    inherit (wheel) abi platform hash;
+  };
 
-    src = fetchPypi {
-      pname = "passagemath_combinat";
-      inherit version;
-      format = "wheel";
-      dist = pythonTag;
-      python = pythonTag;
-      inherit (wheel) abi platform hash;
-    };
-
-    nativeBuildInputs = [autoPatchelfHook];
-    dependencies = [
-      gmpy2
-      cysignals
-      memory-allocator
-      passagemath-categories
-      passagemath-environment
-    ];
-  }
+  nativeBuildInputs = [ autoPatchelfHook ];
+  dependencies = [
+    gmpy2
+    cysignals
+    memory-allocator
+    passagemath-categories
+    passagemath-environment
+  ];
+}
