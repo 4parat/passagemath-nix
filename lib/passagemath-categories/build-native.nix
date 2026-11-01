@@ -41,10 +41,6 @@ buildPythonPackage rec {
     passagemath-objects
     memory-allocator
   ];
-  postPatch = ''
-    sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
-  '';
-
   src = fetchPypi {
     pname = "passagemath_categories";
     inherit version;

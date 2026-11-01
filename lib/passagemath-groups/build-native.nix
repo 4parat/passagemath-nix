@@ -37,10 +37,6 @@ buildPythonPackage rec {
     passagemath-modules
   ];
 
-  postPatch = ''
-    sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
-  '';
-
   src = fetchPypi {
     pname = "passagemath_groups";
     inherit version;

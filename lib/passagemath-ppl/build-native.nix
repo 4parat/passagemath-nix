@@ -30,10 +30,6 @@ buildPythonPackage rec {
     gmpy2
   ];
 
-  postPatch = ''
-    sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
-  '';
-
   src = fetchPypi {
     pname = "passagemath_ppl";
     inherit version;

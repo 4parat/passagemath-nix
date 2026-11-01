@@ -37,10 +37,6 @@ buildPythonPackage rec {
     passagemath-ntl
   ];
 
-  postPatch = ''
-    sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
-  '';
-
   src = fetchPypi {
     pname = "passagemath_eclib";
     inherit version;

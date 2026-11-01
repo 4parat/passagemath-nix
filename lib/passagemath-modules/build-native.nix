@@ -55,10 +55,6 @@ buildPythonPackage rec {
     numpy = [numpy];
     flint = [passagemath-flint];
   };
-  postPatch = ''
-    sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
-  '';
-
   src = fetchPypi {
     pname = "passagemath_modules";
     inherit version;

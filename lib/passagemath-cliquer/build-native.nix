@@ -32,10 +32,6 @@ buildPythonPackage rec {
   # Cython imports the cysignals C API at runtime; upstream omits Requires-Dist.
   dependencies = [cysignals];
 
-  postPatch = ''
-    sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
-  '';
-
   src = fetchPypi {
     pname = "passagemath_cliquer";
     inherit version;

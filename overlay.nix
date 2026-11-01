@@ -11,6 +11,7 @@
           passagemath-cliquer = pyFinal.callPackage ./lib/passagemath-cliquer/default.nix {};
           passagemath-combinat = pyFinal.callPackage ./lib/passagemath-combinat/default.nix {};
           passagemath-conf = pyFinal.callPackage ./lib/passagemath-conf/default.nix {};
+          passagemath-conf-nix = pyFinal.callPackage ./lib/passagemath-conf-nix/default.nix {};
           passagemath-ecl = pyFinal.callPackage ./lib/passagemath-ecl/default.nix {};
           passagemath-eclib = pyFinal.callPackage ./lib/passagemath-eclib/default.nix {};
           passagemath-environment = pyFinal.callPackage ./lib/passagemath-environment/default.nix {};

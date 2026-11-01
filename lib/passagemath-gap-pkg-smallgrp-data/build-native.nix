@@ -22,10 +22,6 @@ buildPythonPackage rec {
     passagemath-environment
   ];
 
-  postPatch = ''
-    sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
-  '';
-
   # The sdist contains metadata only; upstream adds GAP data when repairing wheels.
   postInstall = ''
     mkdir -p "$out/${python.sitePackages}/gap/pkg"

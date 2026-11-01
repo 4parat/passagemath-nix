@@ -21,10 +21,6 @@ buildPythonPackage rec {
     passagemath-maxima
   ];
 
-  postPatch = ''
-    sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
-  '';
-
   src = fetchPypi {
     pname = "passagemath_standard";
     inherit version;

@@ -128,9 +128,6 @@ buildPythonPackage rec {
       fpylll
   ];
 
-  postPatch = ''
-    sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
-  '';
   pythonRelaxDeps = ["sphinx"];
   postInstall = ''
     find "$out" -type d -name __pycache__ -prune -exec rm -rf {} +

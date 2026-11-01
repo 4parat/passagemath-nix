@@ -1,14 +1,15 @@
 {
-  pkgs,
   buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  cython,
-  passagemath-setup,
-  passagemath-environment,
   cysignals,
+  cython,
+  fetchPypi,
   gmpy2,
+  passagemath-conf,
+  passagemath-environment,
+  passagemath-setup,
   pkgconfig,
+  pkgs,
+  setuptools,
   typing-extensions,
   ...
 }: let
@@ -23,6 +24,7 @@ in
     pyproject = true;
 
     dependencies = [
+      passagemath-environment
       gmpy2
       cysignals
       typing-extensions
@@ -40,9 +42,6 @@ in
       pkgconfig
     ];
 
-    postPatch = ''
-      sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
-    '';
     src = fetchPypi {
       pname = snake_pname;
       inherit version hash;

@@ -54,10 +54,6 @@ buildPythonPackage rec {
     export CYTHON_INCLUDE_PATH="${passagemath-flint}/${python.sitePackages}"
   '';
 
-  postPatch = ''
-    sed -i '/passagemath-conf ~= .* ; sys_platform !=/d' pyproject.toml
-  '';
-
   src = fetchPypi {
     pname = "passagemath_linbox";
     inherit version;
