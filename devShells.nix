@@ -2,7 +2,7 @@
   pkgs,
   self',
   ...
-} @ osConfig: {
+}: {
   default = self'.devShells.debug;
   debug = pkgs.mkShellNoCC {
     packages = [
@@ -42,20 +42,13 @@
   native = let
     pkgs' = self'.pkgs.native;
   in
-    pkgs'.mkShellNoCC {
+    pkgs'.mkShell {
       packages = [
         (pkgs'.python3.withPackages (pypkgs: [
           pypkgs.passagemath-standard
           pypkgs.jupyter
           pypkgs.notebook
         ]))
-        pkgs'.dot2tex
-        pkgs'.gap
-        pkgs'.graphviz
-        pkgs'.meson
-        pkgs'.pari
-        pkgs'.singular
-        pkgs'.texliveSmall
       ];
     };
 

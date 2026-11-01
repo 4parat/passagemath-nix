@@ -1,6 +1,6 @@
 build build-mode pkg *args:
   #!/usr/bin/env bash
-  OUTPUT="outputs/builds/$(date +%F_%H-%M)-{{ pkg }}"
+  OUTPUT="outputs/builds/$(date +%F_%H-%M)-{{ build-mode }}-{{ pkg }}"
   mkdir -p "$OUTPUT"
   nix build .#pkgs.x86_64-linux.{{ build-mode }}.python3Packages.{{ pkg }} -L --keep-failed {{ args }} 2>&1 | tee "$OUTPUT/log"
 
@@ -12,10 +12,9 @@ check-dependencies:
 
 link build-mode pkg:
   #!/usr/bin/env bash
-  OUTPUT="outputs/links"
+  OUTPUT="outputs/links/{{ build-mode }}/"
   mkdir -p $OUTPUT
-  echo "$OUTPUT/{{ pkg }}"
-  nix build .#{{ pkg }} -o "$OUTPUT/{{ pkg }}"
+  nix build .#pkgs.x86_64-linux.{{ build-mode }}.python3Packages.{{ pkg }} -o "$OUTPUT/{{ pkg }}"
 
 graph build-mode pkg:
   #!/usr/bin/env bash
