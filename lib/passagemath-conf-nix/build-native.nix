@@ -1,13 +1,18 @@
 {
-  buildPythonPackage,
-  lib,
-  fetchPypi,
-  setuptools,
   build,
+  buildPythonPackage,
+  gap,
+  lib,
   packaging,
+  setuptools,
   writeText,
   ...
 }:
+
+let
+  gapRoot = "${gap}/share/gap";
+in
+  assert builtins.pathExists "${gapRoot}/lib/init.g";
 let
   pname = "passagemath-conf";
   snake_pname = "passagemath_conf_pypi";
@@ -18,12 +23,10 @@ let
   # Changing it will cause mass rebuild on Sage packages
   config = {
     CBLAS_PC_MODULES = "openblas:blas";
-    # SINGULAR_BIN = "${singular}/bin/Singular";
-    # MAXIMA = "${maxima}/bin/maxima";
-    # OPENMP_CFLAGS = "";
-    # OPENMP_CXXFLAGS = "";
-    # NTL_INCDIR = null;
-    # NTL_LIBDIR = null;
+
+    # Required because of runtime issues on some passagemath packages
+    # Added to try to debug test_passagemath_polyhedra.test_002
+    GAP_ROOT_PATHS = gapRoot; # TODO : check which gap I can remove in buildInputs
   };
 
   toPython =
