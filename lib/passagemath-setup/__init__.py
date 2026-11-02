@@ -167,9 +167,10 @@ def sage_setup(distributions, *,
                 from sage.env import cython_aliases, sage_include_directories
                 from sage.misc.package_dir import cython_namespace_package_support
                 with cython_namespace_package_support():
+                    cython_include_path = [".", *sage_include_directories(use_sources=False)]
                     extensions = cythonize(
                         cython_modules,
-                        include_path= sys.path + ['.'], # NIX HACKING
+                        include_path= cython_include_path, # Nix hack here
                         compile_time_env=compile_time_env_variables(),
                         compiler_directives=compiler_directives(False),
                         aliases=cython_aliases(),
