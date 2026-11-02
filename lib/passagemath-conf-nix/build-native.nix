@@ -49,7 +49,7 @@ let
     );
   };
 in
-buildPythonPackage rec {
+buildPythonPackage {
   inherit pname version;
 
   pyproject = true;
