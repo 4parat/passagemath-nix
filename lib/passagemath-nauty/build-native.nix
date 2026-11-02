@@ -1,14 +1,15 @@
 {
-  pkgs,
   buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  cython,
-  pkgconfig,
-  passagemath-setup,
-  passagemath-environment,
   cysignals,
+  cython,
+  fetchPypi,
+  lib,
+  passagemath-environment,
   passagemath-graphs,
+  passagemath-setup,
+  pkgconfig,
+  pkgs,
+  setuptools,
   ...
 }:
 buildPythonPackage rec {
@@ -36,5 +37,11 @@ buildPythonPackage rec {
     pname = "passagemath_nauty";
     inherit version;
     hash = "sha256-ms6j8BtS+C075RxbmI50OQ3roarQJWRMD6EZXpkOVHA=";
+  };
+  meta = {
+    description = "passagemath: Find automorphism groups of graphs, generate non-isomorphic graphs with nauty";
+    homepage = "https://passagemath.org";
+    sourceProvenance = "https://github.com/passagemath/passagemath";
+    license = lib.licenses.gpl2Plus;
   };
 }

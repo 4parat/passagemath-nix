@@ -1,14 +1,15 @@
 {
-  pkgs,
   buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  cython,
-  pkgconfig,
-  passagemath-setup,
-  passagemath-environment,
   cysignals,
+  cython,
+  fetchPypi,
+  lib,
   passagemath-categories,
+  passagemath-environment,
+  passagemath-setup,
+  pkgconfig,
+  pkgs,
+  setuptools,
   ...
 }:
 buildPythonPackage rec {
@@ -40,5 +41,12 @@ buildPythonPackage rec {
     pname = "passagemath_ecl";
     inherit version;
     hash = "sha256-BD6+7oPJpChvy6UFVMfMG6wa0ZQDzaIn0cuW9+2ExsU=";
+  };
+
+  meta = {
+    description = "passagemath: Embeddable Common Lisp";
+    homepage = "https://passagemath.org";
+    sourceProvenance = "https://github.com/passagemath/passagemath";
+    license = lib.licenses.gpl2Plus;
   };
 }

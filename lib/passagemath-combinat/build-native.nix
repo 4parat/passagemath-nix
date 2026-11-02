@@ -1,16 +1,17 @@
 {
-  pkgs,
   buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  cython,
-  pkgconfig,
-  passagemath-setup,
-  passagemath-environment,
-  gmpy2,
   cysignals,
+  cython,
+  fetchPypi,
+  gmpy2,
+  lib,
   memory-allocator,
   passagemath-categories,
+  passagemath-environment,
+  passagemath-setup,
+  pkgconfig,
+  pkgs,
+  setuptools,
   ...
 }:
 buildPythonPackage rec {
@@ -42,5 +43,12 @@ buildPythonPackage rec {
     pname = "passagemath_combinat";
     inherit version;
     hash = "sha256-NL041IFFaWhfnXd47xHGwULzXJx1Il1WMCZAc6qqDFE=";
+  };
+  
+  meta = {
+    description = "passagemath: Algebraic combinatorics, combinatorial representation theory";
+    homepage = "https://passagemath.org";
+    sourceProvenance = "https://github.com/passagemath/passagemath";
+    license = lib.licenses.gpl2Plus;
   };
 }

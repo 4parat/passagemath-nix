@@ -4,7 +4,6 @@
   cython,
   fetchPypi,
   gmpy2,
-  passagemath-conf,
   passagemath-environment,
   passagemath-setup,
   pkgconfig,

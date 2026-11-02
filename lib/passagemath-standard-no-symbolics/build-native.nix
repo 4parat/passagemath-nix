@@ -6,7 +6,7 @@
   cython,
   gmpy2,
   jupyter-core,
-  lrcalc,
+  lrcalc-python,
   memory-allocator,
   numpy,
   pkgconfig,
@@ -78,7 +78,7 @@ buildPythonPackage rec {
     ecl
   ];
   dependencies = [
-    lrcalc
+    lrcalc-python
     passagemath-brial
     passagemath-cddlib
     passagemath-cliquer
