@@ -1,55 +1,15 @@
 {
   build,
-  buildPythonPackage,
-  gap,
-  lib,
+  buildPassagemathPackage,
   packaging,
   setuptools,
-  writeText,
   ...
 }:
-
-let
-  gapRoot = "${gap}/share/gap";
-in
-  assert builtins.pathExists "${gapRoot}/lib/init.g";
 let
   pname = "passagemath-conf";
-  snake_pname = "passagemath_conf_pypi";
   version = "10.8.13";
-  hash = "sha256-luuD+ARdXzSZx93UttZBUr9vjYlXhfkIfH5HUBRRRRg=";
-
-  # Things we want to appear in the Sage configuration globally
-  # Changing it will cause mass rebuild on Sage packages
-  config = {
-    CBLAS_PC_MODULES = "openblas:blas";
-
-    # Required because of runtime issues on some passagemath packages
-    # Added to try to debug test_passagemath_polyhedra.test_002
-    GAP_ROOT_PATHS = gapRoot; # TODO : check which gap I can remove in buildInputs
-  };
-
-  toPython =
-    value:
-    if value == null then
-      "None"
-    else if builtins.isBool value then
-      (if value then "True" else "False")
-    else
-      builtins.toJSON value;
-
-  # Files of the passagemath-conf implementations that are piloted by nix.
-  files = {
-    "VERSION.txt" = writeText "VERSION.txt" ''
-      ${version}
-    '';
-    "_sage_conf/_conf.py" = writeText "_conf.py" (
-      lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "${name} = ${toPython value}") config)
-      + "\n"
-    );
-  };
 in
-buildPythonPackage {
+buildPassagemathPackage {
   inherit pname version;
 
   pyproject = true;
@@ -60,11 +20,11 @@ buildPythonPackage {
     packaging
   ];
 
+  sageConf = {
+    CBLAS_PC_MODULES = "openblas:blas";
+  };
+
   dependencies = [ ];
 
-  postPatch = ''
-    cp ${files."_sage_conf/_conf.py"} "_sage_conf/_conf.py"
-    cp ${files."VERSION.txt"} "VERSION.txt"
-  '';
   src = ./sage-conf;
 }

@@ -5,12 +5,14 @@ final: prev: {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (pyFinal: pyPrev: {
       inherit useWheel;
+      mkPassagemathPackage = pyFinal.callPackage ./lib/mkPassagemathPackage.nix { };
+
       passagemath-brial = pyFinal.callPackage ./lib/passagemath-brial/default.nix { };
       passagemath-categories = pyFinal.callPackage ./lib/passagemath-categories/default.nix { };
       passagemath-cddlib = pyFinal.callPackage ./lib/passagemath-cddlib/default.nix { };
       passagemath-cliquer = pyFinal.callPackage ./lib/passagemath-cliquer/default.nix { };
       passagemath-combinat = pyFinal.callPackage ./lib/passagemath-combinat/default.nix { };
-      passagemath-conf = pyFinal.callPackage ./lib/passagemath-conf/default.nix { };
+      # passagemath-conf = pyFinal.callPackage ./lib/passagemath-conf/default.nix { };
       passagemath-conf-nix = pyFinal.callPackage ./lib/passagemath-conf-nix/default.nix { };
       passagemath-ecl = pyFinal.callPackage ./lib/passagemath-ecl/default.nix { };
       passagemath-eclib = pyFinal.callPackage ./lib/passagemath-eclib/default.nix { };
@@ -80,11 +82,11 @@ final: prev: {
       passagemath-tachyon = pyFinal.callPackage ./lib/passagemath-tachyon/default.nix { };
 
       # Non fitting package names
-      # jupyter-threejs-sage = pyFinal.callPackage ./lib/jupyter-threejs-sage/default.nix { };
+      jupyter-threejs-sage = pyFinal.callPackage ./lib/jupyter-threejs-sage/default.nix { };
 
       # External downgraded dependencies
-      memory-allocator = final.callPackage ./lib/memory-allocator/default.nix { };
-      mpmath = final.callPackage ./lib/mpmath/default.nix { };
+      memory-allocator = pyFinal.callPackage ./lib/memory-allocator/default.nix { };
+      mpmath = pyFinal.callPackage ./lib/mpmath/default.nix { };
   })
   ];
 

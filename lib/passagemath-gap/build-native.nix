@@ -1,26 +1,28 @@
 {
-  pkgs,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  cython,
-  pkgconfig,
-  passagemath-setup,
-  passagemath-environment,
+  buildPassagemathPackage,
   cysignals,
+  cython,
   dot2tex,
+  fetchPypi,
+  gap,
+  gmpy2,
   memory-allocator,
-  pexpect,
   passagemath-categories,
+  passagemath-environment,
   passagemath-gap-pkg-factint-data,
   passagemath-gap-pkg-primgrp-data,
   passagemath-gap-pkg-smallgrp-data,
   passagemath-modules,
   passagemath-repl,
-  gmpy2,
+  passagemath-setup,
+  pexpect,
+  pkgconfig,
+  pkgs,
+  setuptools,
   ...
 }:
-buildPythonPackage rec {
+
+buildPassagemathPackage rec {
   pname = "passagemath-gap";
   version = "10.8.13";
 
@@ -51,6 +53,10 @@ buildPythonPackage rec {
     passagemath-gap-pkg-smallgrp-data
     passagemath-repl
   ];
+
+  sageConf = {
+    GAP_ROOT_PATHS = "${gap}/share/gap";
+  };
 
   src = fetchPypi {
     pname = "passagemath_gap";
