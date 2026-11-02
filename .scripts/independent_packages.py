@@ -11,10 +11,12 @@ def strip_pkg(pkg):
 
 G = nx.DiGraph(nx.nx_pydot.read_dot(sys.stdin))
 gens = list(nx.topological_generations(G))
-ordered = [ pkg for gen in reversed(gens) for pkg in gen ]
     
 
-for pkg in ordered:
-    print(f'- [ ] {strip_pkg(pkg)}')
+for i, gen in enumerate(reversed(gens)):
+    print(f'# Stage {i}')
+    for pkg in gen:
+        print(f'- [ ] {strip_pkg(pkg)}')
+    print()
 
 
