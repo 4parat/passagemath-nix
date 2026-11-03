@@ -2,11 +2,9 @@
   buildPythonPackage,
   fetchPypi,
   lib,
-  packaging,
   passagemath-conf-nix,
   platformdirs,
   setuptools,
-  wheel,
   ...
 }:
 buildPythonPackage rec {
@@ -14,13 +12,16 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
+
+  # BUILDSYSTEM CHECKED
   build-system = [
     setuptools
-    wheel
   ];
+
+  # DEPENDENCIES CHECKED
+  # added passagemath-conf because it makes sense
   dependencies = [
     passagemath-conf-nix
-    packaging
     platformdirs
   ];
 
