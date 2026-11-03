@@ -13,6 +13,12 @@ ALL_PACKAGES = [ # SORT IN REVERSE
     "passagemath-sirocco",
     "passagemath-singular",
     "passagemath-schemes",
+    "passagemath-runtimes"
+    "passagemath-runtime-singular"
+    "passagemath-runtime-linbox"
+    "passagemath-runtime-givaro"
+    "passagemath-runtime-gap"
+    "passagemath-runtime-fflas-ffpack"
     "passagemath-rubiks",
     "passagemath-repl",
     "passagemath-rankwidth",
@@ -120,11 +126,7 @@ ALL_PACKAGES = [ # SORT IN REVERSE
     "passagemath-brial",
     "passagemath-bliss",
     "passagemath-benzene",
-    "passage-sws2rst",
-    "passage-setup",
-    "passage-project-cookiecutter",
-    "passage-docbuild",
-    "passage-bootstrap",
+    "passagemath-setup",
     "mpmath",
     "memory-allocator",
 ]
