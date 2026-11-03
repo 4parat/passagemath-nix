@@ -1,20 +1,21 @@
 {
-  pkgs,
   buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  cython,
-  pkgconfig,
-  passagemath-setup,
-  passagemath-environment,
-  libz,
-  passagemath-pari,
   cysignals,
+  cython,
+  fetchPypi,
+  lib,
   memory-allocator,
-  pexpect,
   passagemath-categories,
-  passagemath-modules,
+  passagemath-environment,
   passagemath-flint,
+  passagemath-modules,
+  passagemath-pari,
+  passagemath-setup,
+  pexpect,
+  pkgconfig,
+  pkgs,
+  setuptools,
+  singular,
   ...
 }:
 buildPythonPackage rec {
@@ -29,6 +30,7 @@ buildPythonPackage rec {
     passagemath-setup
     passagemath-environment
   ];
+
   buildInputs = with pkgs; [
     gmp
     libmpc
@@ -39,6 +41,7 @@ buildPythonPackage rec {
     gsl
     ntl
   ];
+
   dependencies = [
     passagemath-pari
     cysignals

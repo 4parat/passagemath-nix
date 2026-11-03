@@ -1,30 +1,32 @@
 import importlib
 import pkgutil
+
 import _sage_conf
 
+config = {}
+pkg_config_paths = []
 
-def load_config():
-    config = {}
+for info in sorted(
+    pkgutil.iter_modules(_sage_conf.__path__),
+    key=lambda item: item.name,
+):
+    if not info.name.startswith("passagemath_runtime_"):
+        continue
 
-    modules = sorted(
-        module.name
-        for module in pkgutil.iter_modules(_sage_conf.__path__)
-    )
+    module = importlib.import_module(f"_sage_conf.{info.name}")
 
-    for name in modules:
-        module = importlib.import_module(f"_sage_conf.{name}")
+    for key, value in vars(module).items():
+        if not key.isupper():
+            continue
 
-        for key, value in vars(module).items():
-            if key.startswith("__") or type(value) != str:
-                continue
-            if key in config:
-                raise ValueError(
-                    f"Duplicate Sage configuration variable: {key}"
-                )
+        # Values of the different PKG_CONFIG_PATHS are merged
+        if key == "PKG_CONFIG_PATHS":
+            pkg_config_paths.extend(value)
+        elif key in config:
+            raise ValueError(f"Duplicate Sage configuration: {key}")
+        else:
             config[key] = value
 
-    return config
+config["PKG_CONFIG_PATHS"] = list(dict.fromkeys(pkg_config_paths))
 
-
-globals().update(load_config())
-
+globals().update(config)

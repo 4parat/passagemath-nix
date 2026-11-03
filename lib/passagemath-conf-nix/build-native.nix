@@ -1,6 +1,6 @@
 {
   build,
-  buildPassagemathPackage,
+  buildPythonPackage,
   packaging,
   setuptools,
   ...
@@ -9,7 +9,7 @@ let
   pname = "passagemath-conf";
   version = "10.8.13";
 in
-buildPassagemathPackage {
+buildPythonPackage {
   inherit pname version;
 
   pyproject = true;
@@ -19,12 +19,6 @@ buildPassagemathPackage {
     build
     packaging
   ];
-
-  sageConf = {
-    CBLAS_PC_MODULES = "openblas:blas";
-  };
-
-  dependencies = [ ];
 
   src = ./sage-conf;
 }

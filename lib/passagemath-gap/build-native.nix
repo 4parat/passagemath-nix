@@ -1,5 +1,5 @@
 {
-  buildPassagemathPackage,
+  buildPythonPackage,
   cysignals,
   cython,
   dot2tex,
@@ -22,7 +22,7 @@
   ...
 }:
 
-buildPassagemathPackage rec {
+buildPythonPackage rec {
   pname = "passagemath-gap";
   version = "10.8.13";
 
@@ -53,10 +53,6 @@ buildPassagemathPackage rec {
     passagemath-gap-pkg-smallgrp-data
     passagemath-repl
   ];
-
-  sageConf = {
-    GAP_ROOT_PATHS = "${gap}/share/gap";
-  };
 
   src = fetchPypi {
     pname = "passagemath_gap";
