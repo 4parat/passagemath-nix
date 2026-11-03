@@ -5,6 +5,7 @@
   passagemath-symbolics,
   passagemath-standard-no-symbolics,
   passagemath-maxima,
+  passagemath-runtimes,
   ...
 }:
 buildPythonPackage rec {
@@ -19,6 +20,7 @@ buildPythonPackage rec {
     passagemath-standard-no-symbolics
     passagemath-symbolics
     passagemath-maxima
+    passagemath-runtimes
   ];
 
   src = fetchPypi {
