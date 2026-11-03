@@ -1,20 +1,23 @@
 {
   buildPythonPackage,
-  fetchPypi,
+  fetchFromGitHub,
   setuptools,
   ...
 }:
-buildPythonPackage rec {
+buildPythonPackage {
   name = "mpmath";
   version = "1.3.0";
   pyproject = true;
+
+  # BUILDSYSTEM CHECKED
   build-system = [
     setuptools
   ];
 
-  src = fetchPypi {
-    pname = "mpmath";
-    inherit version;
-    hash = "sha256-eijrKpd00Ax7ySQRwZqJIJ1dp8TJqeInvoMwojoluR8=";
+  src = fetchFromGitHub {
+    owner = "mpmath";
+    repo = "mpmath";
+    tag = "1.3.0";
+    hash = "sha256-9BGcaC3TyolGeO65/H42T/WQY6z5vc1h+MA+8MGFChU=";
   };
 }
