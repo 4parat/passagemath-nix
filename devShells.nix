@@ -14,6 +14,8 @@
         pypkgs.networkx
         pypkgs.packaging
       ]))
+      pkgs.hyperfine
+      pkgs.perf
       pkgs.alejandra
       pkgs.nix-tree
       pkgs.graphviz
@@ -49,9 +51,14 @@
       packages = [
         (pkgs'.python3.withPackages (pypkgs: [
           pypkgs.passagemath-standard
+          pypkgs.ipython
           pypkgs.jupyter
           pypkgs.notebook
+          pypkgs.cython
         ]))
+        pkgs'.singular
+        pkgs'.gdb
+        pkgs'.gap
       ];
     };
 

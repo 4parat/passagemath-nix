@@ -5,14 +5,13 @@ final: prev: {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (pyFinal: pyPrev: {
       inherit useWheel;
-      mkPassagemathPackage = pyFinal.callPackage ./lib/mkPassagemathPackage.nix { };
+      mkSageRuntimeConfig = pyFinal.callPackage ./lib/mk-sage-runtime-config.nix { };
 
       passagemath-brial = pyFinal.callPackage ./lib/passagemath-brial/default.nix { };
       passagemath-categories = pyFinal.callPackage ./lib/passagemath-categories/default.nix { };
       passagemath-cddlib = pyFinal.callPackage ./lib/passagemath-cddlib/default.nix { };
       passagemath-cliquer = pyFinal.callPackage ./lib/passagemath-cliquer/default.nix { };
       passagemath-combinat = pyFinal.callPackage ./lib/passagemath-combinat/default.nix { };
-      # passagemath-conf = pyFinal.callPackage ./lib/passagemath-conf/default.nix { };
       passagemath-conf-nix = pyFinal.callPackage ./lib/passagemath-conf-nix/default.nix { };
       passagemath-ecl = pyFinal.callPackage ./lib/passagemath-ecl/default.nix { };
       passagemath-eclib = pyFinal.callPackage ./lib/passagemath-eclib/default.nix { };
@@ -71,6 +70,13 @@ final: prev: {
         pyFinal.callPackage ./lib/passagemath-primesieve-primecount/default.nix
           { };
       passagemath-repl = pyFinal.callPackage ./lib/passagemath-repl/default.nix { };
+      passagemath-runtimes = pyFinal.callPackage ./lib/passagemath-runtimes/default.nix { };
+      passagemath-runtime-gap = pyFinal.callPackage ./lib/passagemath-runtime-gap/default.nix { };
+      passagemath-runtime-singular = pyFinal.callPackage ./lib/passagemath-runtime-singular/default.nix { };
+      passagemath-runtime-fflas-ffpack = pyFinal.callPackage ./lib/passagemath-runtime-fflas-ffpack/default.nix { };
+      passagemath-runtime-givaro = pyFinal.callPackage ./lib/passagemath-runtime-givaro/default.nix { };
+      passagemath-runtime-linbox = pyFinal.callPackage ./lib/passagemath-runtime-linbox/default.nix { };
+
       passagemath-schemes = pyFinal.callPackage ./lib/passagemath-schemes/default.nix { };
       passagemath-setup = pyFinal.callPackage ./lib/passagemath-setup/default.nix { };
       passagemath-singular = pyFinal.callPackage ./lib/passagemath-singular/default.nix { };
