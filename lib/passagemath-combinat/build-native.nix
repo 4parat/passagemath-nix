@@ -29,7 +29,6 @@ buildPythonPackage rec {
   buildInputs = with pkgs; [
     gmp
     symmetrica
-    # No external libraries required.
   ];
   dependencies = [
     gmpy2

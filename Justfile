@@ -21,7 +21,8 @@ graph build-mode pkg:
   OUTPUT='outputs/graphs/{{ build-mode }}/{{ pkg }}'
   mkdir -p "$OUTPUT"
   nix-tree --dot --derivation .#pkgs.x86_64-linux.{{ build-mode }}.python3Packages.{{ pkg }} 2>/dev/null > $OUTPUT/raw.dot
-  cat "$OUTPUT/raw.dot" | ./.scripts/restrained_transitive_closure.py > $OUTPUT/restrained_closure.dot
+  cat "$OUTPUT/raw.dot"  | ./.scripts/rename_nodes.py > "$OUTPUT/renamed.dot"
+  cat "$OUTPUT/renamed" | ./.scripts/restrained_transitive_closure.py > $OUTPUT/restrained_closure.dot
 
 vizGraph build-mode pkg:
   #!/usr/bin/env bash

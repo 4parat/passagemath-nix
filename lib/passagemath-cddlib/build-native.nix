@@ -20,7 +20,6 @@ buildPythonPackage rec {
     cython
     pkgconfig
     passagemath-setup
-    passagemath-environment
   ];
   buildInputs = with pkgs; [
     cddlib

@@ -29,7 +29,7 @@ buildPythonPackage rec {
   buildInputs = with pkgs; [
     cliquer
   ];
-  # Cython imports the cysignals C API at runtime; upstream omits Requires-Dist.
+
   dependencies = [ cysignals ];
 
   src = fetchPypi {

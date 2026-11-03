@@ -1,6 +1,10 @@
 {
-  pkgs,
   buildPythonPackage,
+  pkg-config,
+  gmp,
+  libmpc,
+  mpfr,
+  gsl,
   fetchPypi,
   setuptools,
   cython,
@@ -32,10 +36,10 @@ buildPythonPackage rec {
   ];
 
   nativeBuildInputs = [
-    pkgs.pkg-config
+    pkg-config
   ];
 
-  buildInputs = with pkgs; [
+  buildInputs = [
     gmp
     libmpc
     mpfr

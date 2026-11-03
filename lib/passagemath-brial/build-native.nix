@@ -6,7 +6,6 @@
   cython,
   pkgconfig,
   passagemath-setup,
-  passagemath-environment,
   cysignals,
   passagemath-categories,
   ...
@@ -16,13 +15,16 @@ buildPythonPackage rec {
   version = "10.8.13";
 
   pyproject = true;
+
+  # BUILDSYSTEM CHECKED
   build-system = [
     setuptools
-    cython
     pkgconfig
+    cython
     passagemath-setup
-    passagemath-environment
   ];
+
+  # BUILDINPUTS CHECKED
   buildInputs = with pkgs; [
     gmp
     gd
@@ -30,8 +32,9 @@ buildPythonPackage rec {
     m4ri
     libpng
     brial
-    libz
   ];
+
+  # DEPENDENCIES CHECKED
   dependencies = [
     cysignals
     passagemath-categories

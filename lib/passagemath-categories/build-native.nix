@@ -1,17 +1,21 @@
 {
   buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  cython,
-  passagemath-setup,
-  pkgs,
-  passagemath-environment,
-  memory-allocator,
-  passagemath-objects,
-  jinja2,
-  gmpy2,
   cysignals,
+  cython,
+  fetchPypi,
+  gmp,
+  gmpy2,
+  jinja2,
+  libmpc,
+  memory-allocator,
+  mpfr,
+  passagemath-environment,
+  passagemath-objects,
+  passagemath-setup,
   pkgconfig,
+  pkgs,
+  setuptools,
+  typing-extensions,
   ...
 }:
 buildPythonPackage rec {
@@ -20,23 +24,23 @@ buildPythonPackage rec {
 
   pyproject = true;
 
+  # BUILDSYSTEM CHECKED
   build-system = [
     setuptools
     passagemath-setup
     jinja2
-    passagemath-environment
     cython
-    gmpy2
-    cysignals
     pkgconfig
   ];
 
-  buildInputs = with pkgs; [
+  # CHECKED
+  buildInputs = [
     gmp
     libmpc
     mpfr
   ];
 
+  # CHECKED
   dependencies = [
     passagemath-objects
     memory-allocator

@@ -8,6 +8,8 @@
   debug = pkgs.mkShellNoCC {
     packages = [
       (pkgs.python3.withPackages (pypkgs: [
+        pypkgs.pygraphviz
+        pypkgs.pydot
         pypkgs.ipython
         pypkgs.requests
         pypkgs.pydot
