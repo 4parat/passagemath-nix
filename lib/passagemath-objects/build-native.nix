@@ -6,6 +6,7 @@
   gmpy2,
   passagemath-environment,
   passagemath-setup,
+  passagemath-conf-nix,
   pkgconfig,
   pkgs,
   setuptools,
@@ -18,32 +19,36 @@ let
   version = "10.8.13";
   hash = "sha256-mVGP1gXnEHeiP2B3WmVGh/RdFA79u0aL3iGd/dbRB58=";
 in
-buildPythonPackage rec {
-  inherit pname version;
+  buildPythonPackage rec {
+    inherit pname version;
 
-  pyproject = true;
+    pyproject = true;
 
-  dependencies = [
-    passagemath-environment
-    gmpy2
-    cysignals
-    typing-extensions
-  ];
-  buildInputs = with pkgs; [
-    gmp
-    libmpc
-    mpfr
-  ];
-  build-system = [
-    setuptools
-    passagemath-setup
-    passagemath-environment
-    cython
-    pkgconfig
-  ];
+    # BUILDSYSTEM CHECKED
+    build-system = [
+      setuptools
+      passagemath-setup
+      cython
+      pkgconfig
+    ];
 
-  src = fetchPypi {
-    pname = snake_pname;
-    inherit version hash;
-  };
-}
+    # BUILDINPUTS CHECKED
+    buildInputs = with pkgs; [
+      gmp
+      libmpc
+      mpfr
+    ];
+
+    # DEPENDENCIES CHECKED
+    dependencies = [
+      passagemath-environment
+      gmpy2
+      cysignals
+      typing-extensions
+    ];
+
+    src = fetchPypi {
+      pname = snake_pname;
+      inherit version hash;
+    };
+  }
