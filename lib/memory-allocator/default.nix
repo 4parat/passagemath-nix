@@ -1,6 +1,6 @@
 {
   buildPythonPackage,
-  fetchPypi,
+  fetchFromGitHub,
   setuptools,
   cython,
   ...
@@ -9,18 +9,17 @@ buildPythonPackage rec {
   name = "memory-allocator";
   version = "0.1.4";
   pyproject = true;
+
+  # BUILDSYSTEM CHECKED
   build-system = [
     setuptools
     cython
   ];
 
-  dependencies = [
-    cython
-  ];
-
-  src = fetchPypi {
-    pname = "memory_allocator";
-    inherit version;
-    hash = "sha256-1gkhawMDGWfitFqASxL/kClXj07AGf3kLPau1soJ7+Q=";
+  src = fetchFromGitHub {
+    owner = "sagemath";
+    repo = "memory_allocator";
+    tag = "v${version}";
+    hash = "sha256-lwZgMTIkgRorSHZhm5J0s4UmReAw6ENt354fWivs2hA=";
   };
 }
