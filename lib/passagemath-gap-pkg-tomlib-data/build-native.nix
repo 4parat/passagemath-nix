@@ -22,12 +22,6 @@ buildPythonPackage rec {
     passagemath-environment
   ];
 
-  # The sdist contains metadata only; upstream adds GAP data when repairing wheels.
-  postInstall = ''
-    mkdir -p "$out/${python.sitePackages}/gap/pkg"
-    ln -s ${pkgs.gap}/share/gap/pkg/tomlib "$out/${python.sitePackages}/gap/pkg/tomlib"
-  '';
-
   src = fetchPypi {
     pname = "passagemath_gap_pkg_tomlib_data";
     inherit version;

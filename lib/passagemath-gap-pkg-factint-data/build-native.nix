@@ -1,6 +1,4 @@
 {
-  pkgs,
-  python,
   buildPythonPackage,
   fetchPypi,
   passagemath-setup,
@@ -21,12 +19,6 @@ buildPythonPackage rec {
   dependencies = [
     passagemath-environment
   ];
-
-  # The sdist contains metadata only; upstream adds GAP data when repairing wheels.
-  postInstall = ''
-    mkdir -p "$out/${python.sitePackages}/gap/pkg"
-    ln -s ${pkgs.gap}/share/gap/pkg/factint "$out/${python.sitePackages}/gap/pkg/factint"
-  '';
 
   src = fetchPypi {
     pname = "passagemath_gap_pkg_factint_data";
